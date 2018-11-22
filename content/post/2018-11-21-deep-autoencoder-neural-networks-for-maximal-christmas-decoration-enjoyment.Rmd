@@ -1,0 +1,36 @@
+---
+title: Deep Autoencoder Neural Networks for Maximal Christmas Decoration Enjoyment
+author: Michael C Johnson
+date: '2018-11-21'
+slug: deep-autoencoder-neural-networks-for-maximal-christmas-decoration-enjoyment
+categories: []
+tags:
+  - Deep Learning
+  - Raspberry Pi
+  - python
+  - Keras
+  - tensorflow
+type: ''
+subtitle: ''
+image: ''
+---
+```{r setup, include=FALSE}
+library(reticulate)
+use_python('C:/Users/mj514/Anaconda3/envs/py36_tensorflow/python.exe')
+#use_python('C:/Users/mj514/Anaconda3/env/py36_tensorflow/python.exe', required = TRUE)
+#use_condaenv(conda = 'C:/Users/mj514/Anaconda3/bin/conda', condaenv = 'py36_tensorflow')
+```
+My wife loves decorations. From Valentines Day to Easter to Thanksgiving, our house is adorned with interesting festive items. Her favorite by far is Christmas Lights. 
+
+```{r}
+#py_config()
+aVar = rnorm(100)
+print(aVar[0:10])
+```
+A Python Chunk:
+
+
+```{python}
+for i in range(1,10):
+  print(i)
+```
