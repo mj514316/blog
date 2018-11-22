@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Keras on Standard Deviations</title>
+    <link>/tags/keras/</link>
+    <description>Recent content in Keras on Standard Deviations</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>mj514316@domain.com (Michael C Johnson)</managingEditor>
+    <webMaster>mj514316@domain.com (Michael C Johnson)</webMaster>
+    <lastBuildDate>Wed, 21 Nov 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/keras/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Deep Autoencoder Neural Networks for Maximal Christmas Decoration Enjoyment</title>
+      <link>/post/deep-autoencoder-neural-networks-for-maximal-christmas-decoration-enjoyment/</link>
+      <pubDate>Wed, 21 Nov 2018 00:00:00 +0000</pubDate>
+      <author>mj514316@domain.com (Michael C Johnson)</author>
+      <guid>/post/deep-autoencoder-neural-networks-for-maximal-christmas-decoration-enjoyment/</guid>
+      <description>My wife loves decorations. From Valentines Day to Easter to Thanksgiving, our house is adorned with interesting festive items. Her favorite by far is Christmas Lights.
+#py_config()aVar = rnorm(100)print(aVar[0:10])## [1] -0.71868273 -0.62521775 0.25642772 -0.08832726 0.04410373## [6] -0.71468231 0.56747996 1.01872846 -0.77772144 -2.53559110A Python Chunk:
+for i in range(1,10):print(i)## 1## 2## 3## 4## 5## 6## 7## 8## 9</description>
+    </item>
+    
+  </channel>
+</rss>
