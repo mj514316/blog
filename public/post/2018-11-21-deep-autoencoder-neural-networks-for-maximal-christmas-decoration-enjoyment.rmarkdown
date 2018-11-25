@@ -1,0 +1,69 @@
+---
+title: Deep Autoencoder Neural Networks for Maximal Christmas Decoration Enjoyment
+author: Michael C Johnson
+date: '2018-11-21'
+slug: deep-autoencoder-neural-networks-for-maximal-christmas-decoration-enjoyment
+categories: []
+tags:
+  - Deep Learning
+  - Raspberry Pi
+  - python
+  - Keras
+  - tensorflow
+type: ''
+subtitle: ''
+image: ''
+---
+```{r setup, include=FALSE}
+library(reticulate)
+use_python('C:/Users/mj514/Anaconda3/python.exe')
+
+```
+My wife loves decorations. From Valentines Day to Easter to Thanksgiving, our house is adorned with interesting festive items. Her favorite season by far is Christmas. Every December we drive around trying to find the best christmas lights. Inevitably, their are a few houses with lights that blink with the music, something I've always been fascinating with.   
+Two years ago I embarked on a mission to build my own Christmas Tree Light Show. Roughly this could be acomplished by figuring out what frequencies are playing at a given time, and blinking different lights for a given frequency. Specically this is what I had in mind:  
+1. Convert singal into frequency components using [FFT](https://en.wikipedia.org/wiki/Discrete_Fourier_transform)  
+2. Bucketize frequencies into the number of light channels
+3. Activate a light channel when the decibles reached a certain threshold:  
+![Light Show Pipeline](/img/LightShowPipeline.jpg)
+
+Once you've processed the signal through the FFT, you can make an interesting chart called a spectrogram:
+```{python, eval = TRUE, echo = FALSE}
+import sys
+sys.path.append('C:/Users/mj514/Documents/dataSci/christmasAutoencoder')
+
+from spectrogramUtils import *
+
+```
+
+A brief Google investigation revealed I had been (thankfully) beaten to the chase. The open source [lightshowpi](http://lightshowpi.org/) project already had a full pipeline, took like 10 minutes to set up, and already had the FFT parralellized on the Raspberry Pi GPU (so you can apply it to streaming music!). Here is a video of our lightshow the first year (christmas tree only):
+
+```{r, eval=TRUE, echo=FALSE}
+blogdown::shortcode("youtube", "aAiQ7VSyrno")
+
+```
+
+What I've found over the past few years is that while the light show is certainly entertaining (After every song, every year, my kids have a deep expression of joy and clap and congratulate me on my show) I've been interested in ways to capture more of the structure of the sound in the blinking lights. The light blinking can be sporadic (especially during very fast parts of the song), and vocals are not always captured very well accross octave range's.
+## Enter: Deep Autoencoder Neural Networks
+Autoencoders are deeply intuitive networks that have a simple premise: reconstruct an input from an output, and in the mean time learn a compressed representation of the data. This 
+
+
+```{r}
+aVar = rnorm(100)
+print(aVar[0:10])
+```
+A Python Chunk:
+```{python}
+#from spectrogramUtils import *
+
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import MinMaxScaler
+from matplotlib import pyplot as plt
+
+from keras.layers import Input, Dense, Conv1D, MaxPool1D, UpSampling1D, Flatten
+from keras.models import Model
+
+from keract import get_activations
+```
+
+

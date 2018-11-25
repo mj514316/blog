@@ -35,3 +35,7 @@ pie(
   init.angle = -50, border = NA
 )
 ```
+
+```{python}
+print('Hello World')
+```
