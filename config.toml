@@ -1,5 +1,5 @@
 #baseurl = "https://epic-curran-aca5f0.netlify.com/"
-baseurl = "https://www.mimimizeuncertainty.com/"
+baseurl = "https://www.minimizeuncertainty.com/"
 DefaultContentLanguage = "en"
 #DefaultContentLanguage = "ja"
 title = "Uncertainty...Minimized"
@@ -12,8 +12,8 @@ pygmentsCodefencesGuessSyntax = true
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 #pygmentsUseClassic = true
 #pygmentOptions = "linenos=inline"
-#disqusShortname = "XXX"
-#googleAnalytics = "XXX"
+disqusShortname = "minimizeuncertainty"
+googleAnalytics = "UA-129788260-1"
 
 [Params]
 #  homeTitle = "Beautiful Hugo Theme" # Set a different text for the header on the home page
@@ -78,29 +78,6 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 [[menu.main]]
     name = "About"
     url = "page/about/"
-    weight = 3
-
-[[menu.main]]
-    identifier = "samples"
-    name = "Samples"
-    weight = 2
-
-[[menu.main]]
-    parent = "samples"
-    name = "Big Image Sample"
-    url = "post/2017-03-07-bigimg-sample"
-    weight = 1
-
-[[menu.main]]
-    parent = "samples"
-    name = "Math Sample"
-    url = "post/2017-03-05-math-sample"
-    weight = 2
-
-[[menu.main]]
-    parent = "samples"
-    name = "Code Sample"
-    url = "post/2016-03-08-code-sample"
     weight = 3
 
 [[menu.main]]
