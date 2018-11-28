@@ -10,10 +10,10 @@
   <title>Deep Autoencoder Neural Networks for Maximal Christmas Decoration Enjoyment - Uncertainty...Minimized</title>
   <meta property="og:title" content="Deep Autoencoder Neural Networks for Maximal Christmas Decoration Enjoyment" />
   <meta name="twitter:title" content="Deep Autoencoder Neural Networks for Maximal Christmas Decoration …" />
-  <meta name="description" content="My wife loves decorations. From Valentines Day to Easter to Thanksgiving, our house is adorned with interesting festive items. Her favorite season by far is Christmas. Every December we drive around trying to find the best christmas lights. Inevitably, their are a few houses with lights that blink with the music, something I&rsquo;ve always been fascinating with.
-Two years ago I embarked on a mission to build my own Christmas Tree Light Show.">
-  <meta property="og:description" content="My wife loves decorations. From Valentines Day to Easter to Thanksgiving, our house is adorned with interesting festive items. Her favorite season by far is Christmas. Every December we drive around trying to find the best christmas lights. Inevitably, their are a few houses with lights that blink with the music, something I&rsquo;ve always been fascinating with.
-Two years ago I embarked on a mission to build my own Christmas Tree Light Show.">
+  <meta name="description" content="My wife loves decorations. From Valentines Day to Easter to Thanksgiving, our house is adorned with interesting festive items. Her favorite season by far is Christmas. Every December we drive around trying to find the best Christmas lights. Inevitably, there are a few houses with lights that blink with the music, something I&rsquo;ve always been fascinating with.
+Two years ago I embarked on a mission to build my own Christmas Light Show, specifically this is what I had in mind:">
+  <meta property="og:description" content="My wife loves decorations. From Valentines Day to Easter to Thanksgiving, our house is adorned with interesting festive items. Her favorite season by far is Christmas. Every December we drive around trying to find the best Christmas lights. Inevitably, there are a few houses with lights that blink with the music, something I&rsquo;ve always been fascinating with.
+Two years ago I embarked on a mission to build my own Christmas Light Show, specifically this is what I had in mind:">
   <meta name="twitter:description" content="My wife loves decorations. From Valentines Day to Easter to Thanksgiving, our house is adorned with interesting festive items. Her favorite season by far is Christmas. Every December we drive around …">
   <meta name="author" content="Michael C Johnson"/><script type="application/ld+json">
 {
@@ -63,14 +63,14 @@ Two years ago I embarked on a mission to build my own Christmas Tree Light Show.
     "name" : "Michael C Johnson"
   },
   "headline": "Deep Autoencoder Neural Networks for Maximal Christmas Decoration Enjoyment",
-  "description" : "My wife loves decorations. From Valentines Day to Easter to Thanksgiving, our house is adorned with interesting festive items. Her favorite season by far is Christmas. Every December we drive around trying to find the best christmas lights. Inevitably, their are a few houses with lights that blink with the music, something I&amp;rsquo;ve always been fascinating with.
-Two years ago I embarked on a mission to build my own Christmas Tree Light Show.",
+  "description" : "My wife loves decorations. From Valentines Day to Easter to Thanksgiving, our house is adorned with interesting festive items. Her favorite season by far is Christmas. Every December we drive around trying to find the best Christmas lights. Inevitably, there are a few houses with lights that blink with the music, something I&amp;rsquo;ve always been fascinating with.
+Two years ago I embarked on a mission to build my own Christmas Light Show, specifically this is what I had in mind:",
   "inLanguage" : "en",
-  "wordCount": 1286,
+  "wordCount": 1529,
   "datePublished" : "2018-11-21T00:00:00",
   "dateModified" : "2018-11-21T00:00:00",
   "image" : "/img/headShot2.jpg",
-  "keywords" : [ "Deep Learning, Raspberry Pi, python, Keras, tensorflow" ],
+  "keywords" : [ "Deep Learning, Raspberry Pi, python, Keras, tensorflow, Christmas, FFT, Autoencoder" ],
   "mainEntityOfPage" : "/post/deep-autoencoder-neural-networks-for-maximal-christmas-decoration-enjoyment/",
   "publisher" : {
     "@type": "Organization",
@@ -86,8 +86,8 @@ Two years ago I embarked on a mission to build my own Christmas Tree Light Show.
 </script>
 
 <meta property="og:title" content="Deep Autoencoder Neural Networks for Maximal Christmas Decoration Enjoyment" />
-<meta property="og:description" content="My wife loves decorations. From Valentines Day to Easter to Thanksgiving, our house is adorned with interesting festive items. Her favorite season by far is Christmas. Every December we drive around trying to find the best christmas lights. Inevitably, their are a few houses with lights that blink with the music, something I&rsquo;ve always been fascinating with.
-Two years ago I embarked on a mission to build my own Christmas Tree Light Show.">
+<meta property="og:description" content="My wife loves decorations. From Valentines Day to Easter to Thanksgiving, our house is adorned with interesting festive items. Her favorite season by far is Christmas. Every December we drive around trying to find the best Christmas lights. Inevitably, there are a few houses with lights that blink with the music, something I&rsquo;ve always been fascinating with.
+Two years ago I embarked on a mission to build my own Christmas Light Show, specifically this is what I had in mind:">
 <meta property="og:image" content="/img/headShot2.jpg" />
 <meta property="og:url" content="/post/deep-autoencoder-neural-networks-for-maximal-christmas-decoration-enjoyment/" />
 <meta property="og:type" content="website" />
@@ -268,10 +268,10 @@ if (!doNotTrack) {
   <i class="fas fa-calendar"></i>&nbsp;Posted on November 21, 2018
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;7&nbsp;minutes
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;8&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1286&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1529&nbsp;words
   
   
     &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Michael C Johnson
@@ -296,16 +296,19 @@ if (!doNotTrack) {
       <article role="main" class="blog-post">
         
 
-<p>My wife loves decorations. From Valentines Day to Easter to Thanksgiving, our house is adorned with interesting festive items. Her favorite season by far is Christmas. Every December we drive around trying to find the best christmas lights. Inevitably, their are a few houses with lights that blink with the music, something I&rsquo;ve always been fascinating with.<br />
-Two years ago I embarked on a mission to build my own Christmas Tree Light Show. Roughly this could be acomplished by figuring out what frequencies are playing at a given time, and blinking different lights for a given frequency. Specically this is what I had in mind:
-1. Break music up into even sized chunks
-2. Convert each chunk into frequency components using <a href="https://en.wikipedia.org/wiki/Discrete_Fourier_transform">FFT</a><br />
-3. Bucketize frequencies into the number of light channels
-4. Activate a light channel when the decibles reached a certain threshold:</p>
+<p>My wife loves decorations. From Valentines Day to Easter to Thanksgiving, our house is adorned with interesting festive items. Her favorite season by far is Christmas. Every December we drive around trying to find the best Christmas lights. Inevitably, there are a few houses with lights that blink with the music, something I&rsquo;ve always been fascinating with.<br />
+Two years ago I embarked on a mission to build my own Christmas Light Show, specifically this is what I had in mind:</p>
+
+<ol>
+<li>Break music up into even sized chunks<br /></li>
+<li>Convert each chunk into frequency components using <a href="https://en.wikipedia.org/wiki/Discrete_Fourier_transform">FFT</a><br /></li>
+<li>Bucketize frequencies into the number of light channels<br /></li>
+<li>Activate a light channel when the decibels reached a certain threshold:<br /></li>
+</ol>
 
 <p><img src="/img/LightShowPipeline.jpg" alt="Light Show Pipeline" /></p>
 
-<p>A brief Google investigation revealed I had been (thankfully) beaten to the chase. The open source <a href="http://lightshowpi.org/">lightshowpi</a> project already had a full pipeline, took like 10 minutes to set up, and already had the FFT parralellized on the Raspberry Pi GPU (so you can apply it to streaming music!). Here is a video of our lightshow the first year (christmas tree only):</p>
+<p>A brief Google investigation revealed I had been (thankfully) beaten to the chase. The open source <a href="http://lightshowpi.org/">lightshowpi</a> project already had a full pipeline, took like 10 minutes to set up, and already had the FFT parallelized on the Raspberry Pi GPU (so you can apply it to streaming music!). Here is a video of our light show the first year (Christmas tree only):</p>
 
 <p><!--html_preserve-->
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
@@ -313,24 +316,24 @@ Two years ago I embarked on a mission to build my own Christmas Tree Light Show.
 </div>
 <!--/html_preserve--></p>
 
-<p>What I&rsquo;ve found over the past few years is that while the light show is certainly entertaining (After every song, every year, my kids have a deep expression of joy and clap and congratulate me on my show) I&rsquo;ve been interested in ways to capture more of the structure of the sound in the blinking lights. The light blinking can be sporadic (especially during very fast parts of the song), and vocals are not always captured very well accross octave range&rsquo;s.</p>
+<p>What I&rsquo;ve found over the past few years is that while the light show is certainly entertaining (After every song, every year, my kids have a deep expression of joy and clap and congratulate me on my show), I&rsquo;ve been interested in ways to capture more of the structure of the sound in the blinking lights. The light blinking can be sporadic (especially during very fast parts of the song), and vocals are not always captured very well across vocal range.</p>
 
 <h2 id="enter-deep-autoencoder-neural-networks">Enter: Deep Autoencoder Neural Networks</h2>
 
-<p>Autoencoders are deeply intuitive networks that have a simple premise: reconstruct an input from an output, and in the mean time learn a compressed representation of the data. This is accomplished by squezing the network in the middle, forcing the network to compress x inputs into y intermediate outputs, where x&gt;&gt;y. <a href="https://blog.keras.io/building-autoencoders-in-keras.html">Here</a> is a nice blog post from the Keras blog that goes into some detail on the mnist dataset.</p>
+<p>Autoencoders are intuitive networks that have a simple premise: reconstruct an input from an output while learning a compressed representation of the data. This is accomplished by squeezing the network in the middle, forcing the network to compress x inputs into y intermediate outputs, where x&gt;&gt;y. <a href="https://blog.keras.io/building-autoencoders-in-keras.html">Here</a> is a nice blog post from the Keras blog that goes into some detail on autoencoders for the mnist dataset.</p>
 
 <p><img src="/img/Autoencoder.jpg" alt="Generic AutoEncoder" /></p>
 
-<p>So what exactly are we going to squeeze? Once you&rsquo;ve processed the signal through the FFT, you can make a spectrogram (check out <a href="https://www.youtube.com/watch?v=_FatxGN3vAM">this</a> super psyched youtube video)&hellip; Here time is on the x-axis, frequency is on the y, and the color represents the amplitude for that time/frequency. I&rsquo;d really watch the video mentioned above, but if you could sing a pure <a href="http://pages.mtu.edu/~suits/notefreqs.html">A4 note</a> you&rsquo;d have a solid (in this case red) line at 440Hz. The song we&rsquo;ll study for the rest of the post is &ldquo;<a href="https://www.youtube.com/watch?v=6P9xxJ4V7no">A Mad Russian&rsquo;s Christmas</a>&rdquo; by The Trans Siberian Orchestra, check out the spectrogram:<br />
+<p>So what exactly are we going to squeeze? Once you&rsquo;ve processed the signal through the FFT, you can make a spectrogram (check out <a href="https://www.youtube.com/watch?v=_FatxGN3vAM">this</a> super psyched YouTube video)&hellip; Time is on the x-axis, frequency is on the y, and the color represents the amplitude for that time/frequency. If you had a tuning fork tuned for a pure <a href="http://pages.mtu.edu/~suits/notefreqs.html">A4 note</a> you&rsquo;d have a solid (in this case red) line at 440Hz. The song we&rsquo;ll study for the rest of the post is &ldquo;<a href="https://www.youtube.com/watch?v=6P9xxJ4V7no">A Mad Russian&rsquo;s Christmas</a>&rdquo; by The Trans Siberian Orchestra, check out the spectrogram:<br />
 <img src="/img/madRussianOrig.jpg" alt="A Mad Russian's Christmas" /></p>
 
-<p>You can tell quite a bit about what is going on in the song. The intro starts slow with several repeating sections, quieting down and building up to the fastest section (around 70s). This builds up, faster and louder until it breaks into another rythmic section. From here you can see a few more fast/repeating sections, and a general quieting at the end. I encourage you to look at the spectrogram while you listen to the song, see if you can pick out the different sections. But don&rsquo;t go crazy, there is plenty more fun to be had below!</p>
+<p>I encourage you to look at the spectrogram while you listen to the song, see if you can pick out the different sections. You&rsquo;ll also notice why our simple heuristic method (frequency buckets + thresholding) doesn&rsquo;t do a great job capturing the structure of the song. If you look closely at the spectrogram you notice characteristic bands representing the complex sounds span many frequencies.</p>
 
-<p>Since the ultimate goal is to light up different christmas lights at different rythms in the song, what we need to do is to learn a compressed representation of the audio input <em>at each time step</em>. The spectrogram works perfectly for this. There are 513 frequency &lsquo;features&rsquo; at each timestep, so the goal of our autoencoder will be to build an 8-channel representation of each time step (The same number of light channels we have. Note that this is essentially a dimensionality reduction technique, and the standard set of algorithms could be applied here (PCA and Tsne are my favorite, perhaps we&rsquo;ll do another post on those). Something like this:</p>
+<p>Since the ultimate goal is to light up different Christmas lights at different rhythms in the song, what we need to do is to learn a compressed representation of the audio input <em>at each time step</em>. The spectrogram works perfectly for this. There are 513 frequency &lsquo;features&rsquo; at each time step, so the goal of our autoencoder will be to build an 8-channel representation of each time step (To match the number of light channels). Note that this is essentially a dimensionality reduction technique, and the standard set of algorithms could be applied here (PCA and tSNE are my favorite, perhaps we&rsquo;ll do another post on those<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup>). Something like this:</p>
 
 <p><img src="/img/AutoencoderSpectrogram.jpg" alt="Autoencoder For Spectrogram" /></p>
 
-<p>We&rsquo;ll train &ldquo;A Mad Russian&rsquo;s Christmas&rdquo; and test on &ldquo;Christmas Serajevo&rdquo;. First, lets get some setup out of the way:</p>
+<p>We&rsquo;ll train &ldquo;A Mad Russian&rsquo;s Christmas&rdquo; and test on &ldquo;Christmas Sarajevo&rdquo;. First, lets get some setup out of the way:</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">spectrogramUtils</span> <span class="kn">import</span> <span class="o">*</span> <span class="c1">#(Check Bitbucket link for this file. Or use pyplot.specgram....)</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
@@ -338,39 +341,45 @@ Two years ago I embarked on a mission to build my own Christmas Tree Light Show.
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 
-<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">Input</span><span class="p">,</span> <span class="n">Dense</span><span class="p">,</span> <span class="n">Conv1D</span><span class="p">,</span> <span class="n">MaxPool1D</span><span class="p">,</span> <span class="n">UpSampling1D</span><span class="p">,</span> <span class="n">Flatten</span><span class="p">,</span> <span class="n">Dropout</span></code></pre></div><div class="highlight"><pre class="chroma">## C:\Users\mj514\ANACON~1\lib\site-packages\h5py\__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">Input</span><span class="p">,</span> <span class="n">Dense</span><span class="p">,</span> <span class="n">Dropout</span></code></pre></div><div class="highlight"><pre class="chroma">## C:\Users\mj514\ANACON~1\lib\site-packages\h5py\__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
 ##   from ._conv import register_converters as _register_converters
-## Using TensorFlow backend.</pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">keras.models</span> <span class="kn">import</span> <span class="n">Model</span>
-
-<span class="kn">from</span> <span class="nn">keract</span> <span class="kn">import</span> <span class="n">get_activations</span></code></pre></div>
-<p>Keract is a nice package that allows you to get the intermediate activations from any Keras-based network. Notice I import both Dense and 1D Convolution layers here, we&rsquo;ll use the latter down below.
-Now, create extract the spectrograms out of the the data. <a href="https://bitbucket.org/mj514316/christmasautoencoder/src/master/MakeSpectrogram.ipynb">This notebook</a> shows how to convert from .mp3 to .wav, using ffmpeg. I&rsquo;m not as familiar with powershell as I&rsquo;d like to be, so I just used python to loop through the files. The plotstft function (from spectrogramUtils) breaks our song up into frequency components, and returns a .npy array with 513 features and some number of time step features.</p>
+## Using TensorFlow backend.</pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">keras.models</span> <span class="kn">import</span> <span class="n">Model</span></code></pre></div>
+<p>Now, create extract the spectrograms out of the the data. Here is a code snippet that will convert your <strong>entire</strong> music library into .wav (make sure you have ffmpeg installed first) :</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">re</span><span class="o">,</span> <span class="nn">subprocess</span>
+<span class="n">paths</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="s1">&#39;C:/Users/mj514/Music/&#39;</span><span class="p">):</span>
+    <span class="k">for</span> <span class="nb">file</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">&#34;.mp3&#34;</span> <span class="ow">in</span> <span class="nb">file</span><span class="p">:</span>
+            <span class="n">strippedFileName</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;[^A-Za-z0-9-mp3]+&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nb">file</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span><span class="c1">#remove special characters and file ending</span>
+            <span class="n">strippedFileName</span> <span class="o">=</span> <span class="n">strippedFileName</span>
+            <span class="n">paths</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">r</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="nb">file</span><span class="p">,</span><span class="n">strippedFileName</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">aTuple</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
+      <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;ffmpeg -i &#34;{aTuple[0]}&#34; wavs\{aTuple[1]}.wav&#39;</span><span class="p">,</span> <span class="n">shell</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span></code></pre></div>
+<p>The plotstft function (from spectrogramUtils, adapted from <a href="http://www.frank-zalkow.de/en/code-snippets/create-audio-spectrograms-with-python.html">here</a>) breaks our song up into frequency components, and returns a .npy array with 513 features and some number of time step features.</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">madIms</span> <span class="o">=</span> <span class="n">plotstft</span><span class="p">(</span><span class="s1">&#39;C:/Users/mj514/Documents/dataSci/christmasAutoencoder/maddrussian.wav&#39;</span><span class="p">)</span></code></pre></div>
-<p><img src="2018-11-21-deep-autoencoder-neural-networks-for-maximal-christmas-decoration-enjoyment_files/figure-html/unnamed-chunk-4-1.png" alt="" /><!-- --></p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">christmasSerajevoIms</span> <span class="o">=</span> <span class="n">plotstft</span><span class="p">(</span><span class="s1">&#39;C:/Users/mj514/Documents/dataSci/christmasAutoencoder/christmasSerajevo.wav&#39;</span><span class="p">)</span></code></pre></div>
-<p><img src="2018-11-21-deep-autoencoder-neural-networks-for-maximal-christmas-decoration-enjoyment_files/figure-html/unnamed-chunk-4-2.png" alt="" /><!-- --></p>
+<p><img src="2018-11-21-deep-autoencoder-neural-networks-for-maximal-christmas-decoration-enjoyment_files/figure-html/unnamed-chunk-5-1.png" alt="" /><!-- --></p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">christmasSarajevoIms</span> <span class="o">=</span> <span class="n">plotstft</span><span class="p">(</span><span class="s1">&#39;C:/Users/mj514/Documents/dataSci/christmasAutoencoder/christmasSerajevo.wav&#39;</span><span class="p">)</span></code></pre></div>
+<p><img src="2018-11-21-deep-autoencoder-neural-networks-for-maximal-christmas-decoration-enjoyment_files/figure-html/unnamed-chunk-5-2.png" alt="" /><!-- --></p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;Class: {madIms.__class__}, shape: {madIms.shape}&#34;</span><span class="p">)</span> <span class="c1"># I recently fell in love with fstrings!!!</span></code></pre></div><div class="highlight"><pre class="chroma">## Class: &lt;class &#39;numpy.ndarray&#39;&gt;, shape: (24330, 513)</pre></div>
-<p>Need to scale the inputs. I use the train to set the scale, then apply the scale to the test. This isn&rsquo;t strictly necessary (could set min max based on all of the songs in my library) but I wanted to see how well it could support online use&hellip; in other words you don&rsquo;t know what the rest of the song is going to look like. Also, since our final softmax layer will only output between 0 and 1, that is good range to scale to.</p>
+<p>Here I chose to do min-max scaling, as my input has a predictable amplitude. I build the transformation on the train song (madIms) and apply it to the test song(christmasSarajevoIms)</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">scaler</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
 <span class="n">x_train</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">madIms</span><span class="p">)</span> 
-<span class="n">x_test</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">christmasSerajevoIms</span><span class="p">)</span></code></pre></div>
-<p>Next, let&rsquo;s set up our autoencoder. Notice thise one is pretty simple, I found that the final softmax stage was enough to capture most of the complexity. You can get slightly better if you do the stepdown and up(commented out), but considering this will run on a raspberry pi and it doesn&rsquo;t get much better, it&rsquo;s reasonable to skip.</p>
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">christmasSarajevoIms</span><span class="p">)</span></code></pre></div>
+<p>Next, let&rsquo;s set up our autoencoder. As you can see the encoder steps progressively down until we get to the desired number of channels, and the decoder steps the input back up to the full 513 output. While the measured loss doesn&rsquo;t improve significantly with added layers ( you can get the same network performance with only 1 hidden layer) I found that the intermediate features are mutch richer with a full encode-decode stack.</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">denseAutoencoder</span><span class="p">(</span><span class="n">internalActivation</span> <span class="o">=</span> <span class="s1">&#39;tanh&#39;</span><span class="p">):</span>
     <span class="n">input_img</span> <span class="o">=</span> <span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">513</span><span class="p">,))</span>
     <span class="n">input_dropped</span> <span class="o">=</span> <span class="n">Dropout</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)(</span><span class="n">input_img</span><span class="p">)</span>
-    <span class="c1"># encoded = Dense(128, activation=internalActivation, name = &#39;encode_128&#39;)(input_img)</span>
-    <span class="c1"># encoded = Dense(64, activation=internalActivation, name = &#39;encode_64&#39;)(encoded)</span>
-    <span class="c1"># encoded = Dense(32, activation=internalActivation, name = &#39;encode_32&#39;)(encoded)</span>
-    <span class="c1"># encoded = Dense(16, activation=internalActivation, name = &#39;encode_16&#39;)(encoded)</span>
-    <span class="n">encoded</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">internalActivation</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;encode_8&#39;</span><span class="p">)(</span><span class="n">input_dropped</span><span class="p">)</span>
-    <span class="c1"># # encoded = Dense(4, activation=&#39;relu&#39;)(encoded)</span>
-    <span class="c1"># encoded = Dense(2, activation=&#39;relu&#39;)(encoded)</span>
-    <span class="c1"># encoded = Dense(1, activation=&#39;relu&#39;)(encoded)</span>
-    <span class="c1">#decoded = Dense(16, activation=internalActivation, name = &#39;decode_16&#39;)(encoded)</span>
-    <span class="c1"># decoded = Dense(32, activation=internalActivation, name = &#39;decode_32&#39;)(decoded)</span>
-    <span class="c1"># decoded = Dense(64, activation=internalActivation, name = &#39;decode_64&#39;)(decoded)</span>
-    <span class="c1"># decoded = Dense(128, activation=internalActivation, name = &#39;decode_128&#39;)(decoded)</span>
-    <span class="n">decoded</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="mi">513</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;output&#39;</span><span class="p">)(</span><span class="n">encoded</span><span class="p">)</span>
+    <span class="n">encoded</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">internalActivation</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;encode_128&#39;</span><span class="p">)(</span><span class="n">input_dropped</span><span class="p">)</span>
+    <span class="n">encoded</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">internalActivation</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;encode_64&#39;</span><span class="p">)(</span><span class="n">encoded</span><span class="p">)</span>
+    <span class="n">encoded</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">internalActivation</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;encode_32&#39;</span><span class="p">)(</span><span class="n">encoded</span><span class="p">)</span>
+    <span class="n">encoded</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">internalActivation</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;encode_16&#39;</span><span class="p">)(</span><span class="n">encoded</span><span class="p">)</span>
+    <span class="n">encoded</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">internalActivation</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;encode_8&#39;</span><span class="p">)(</span><span class="n">encoded</span><span class="p">)</span>
+
+    <span class="n">decoded</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">internalActivation</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;decode_16&#39;</span><span class="p">)(</span><span class="n">encoded</span><span class="p">)</span>
+    <span class="n">decoded</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">internalActivation</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;decode_32&#39;</span><span class="p">)(</span><span class="n">decoded</span><span class="p">)</span>
+    <span class="n">decoded</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">internalActivation</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;decode_64&#39;</span><span class="p">)(</span><span class="n">decoded</span><span class="p">)</span>
+    <span class="n">decoded</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">internalActivation</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;decode_128&#39;</span><span class="p">)(</span><span class="n">decoded</span><span class="p">)</span>
+    <span class="n">decoded</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="mi">513</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;output&#39;</span><span class="p">)(</span><span class="n">decoded</span><span class="p">)</span>
 
     <span class="n">autoencoderDense</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="n">input_img</span><span class="p">,</span> <span class="n">decoded</span><span class="p">)</span>
     <span class="n">autoencoderDense</span><span class="o">.</span><span class="nb">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;binary_crossentropy&#39;</span><span class="p">)</span>
@@ -382,7 +391,91 @@ Now, create extract the spectrograms out of the the data. <a href="https://bitbu
                 <span class="n">batch_size</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span>
                 <span class="n">shuffle</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="c1">#important</span>
                 <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">x_test</span><span class="p">))</span></code></pre></div>
-<p>Couple of things to note, I played with all of the internal activations and tanh was by far the best. I suspect tanh was better than relu in this case because of the inherent non linear nature of sound. Just goes to show that you should craft your architecture to fit the problem at hand. Also, the network is very sensative to overfitting. This could be partially resolved by just adding more songs, and for the production version of this I&rsquo;ll train on every song in my library. Imagine the different structure that would need to be captured for songs that are mainly vocals vs these which are highly instrumental.</p>
+<p>It turns out that for this network, tanh activation was better than relu and sigmoid. I suspect tanh was better than relu in this case because of the inherent non linear nature of sound. Looking at the distribution of magnitudes, there isn&rsquo;t much of a skew, so maybe I&rsquo;m wrong:</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">madIms</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span><span class="n">bins</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span></code></pre></div>
+<p><img src="/img/magnitudeHistogram.jpg" alt="Distribution of magnitudes" />
+While it can be tempting to assume the default (in this case relu) is the best activation, it&rsquo;s always best to explore.</p>
+
+<h2 id="analyze-output">Analyze Output</h2>
+
+<p>So how well did we do? Lets look at the reconstructed (top) and the original (bottom):
+<img src="/img/reconstructed.png" alt="Reconstructed" />
+<img src="/img/orig.png" alt="orig" /></p>
+
+<p>The reconstructed is significantly less noisy (one of the applications for autoencoders), but seems to do a good job capturing the basic structure.</p>
+
+<p>The final step is to clip off the decode layers and get the activations for the intermediate layers:
+<img src="/img/AutoencoderWithLights.jpg" alt="Christmas Autoencoder" /></p>
+
+<p>To do this, we can use the keract package</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">keract</span> <span class="kn">import</span> <span class="n">get_activations</span>
+<span class="n">active</span> <span class="o">=</span> <span class="n">get_activations</span><span class="p">(</span><span class="n">autoencoderDense</span><span class="p">,</span> <span class="n">x_test</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="p">{</span><span class="k">print</span><span class="p">(</span><span class="n">k</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">active</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+<span class="c1">## dropout_1/cond/Merge:0(17686, 513)</span>
+<span class="c1">## encode_128/Tanh:0(17686, 128)</span>
+<span class="c1">## encode_64/Tanh:0(17686, 64)</span>
+<span class="c1">## encode_32/Tanh:0(17686, 32)</span>
+<span class="c1">## encode_16/Tanh:0(17686, 16)</span>
+<span class="c1">## encode_8/Tanh:0(17686, 8) # this is the one we want</span>
+<span class="c1">## decode_16/Tanh:0(17686, 16)</span>
+<span class="c1">## decode_32/Tanh:0(17686, 32)</span>
+<span class="c1">## decode_64/Tanh:0(17686, 64)</span>
+<span class="c1">## decode_128/Tanh:0(17686, 128)</span>
+<span class="c1">## output/Sigmoid:0(17686, 513)</span>
+
+<span class="n">intermediateLayerName</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">active</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">5</span><span class="p">]</span></code></pre></div>
+<p>Plotting the activations of the encode_8 layer over time gives:</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">active</span><span class="p">[</span><span class="n">intermediateLayerName</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span></code></pre></div>
+<p><img src="/img/smallAutoEncoded.jpg" alt="Small Autoencoded" />
+Here is a super zoomed version (you have to click the white space, I promise it&rsquo;s worth it.)
+
+
+
+<div class="gallery caption-position-bottom caption-effect-slide hover-effect-zoom hover-transition" itemscope itemtype="http://schema.org/ImageGallery">
+	  
+
+<link rel="stylesheet" href="/css/hugo-easy-gallery.css" />
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('//img/bigAutoEncoded.jpg');">
+      <img itemprop="thumbnail" src="/img/bigAutoEncoded.jpg" alt="Large Autoencoded"/>
+    </div>
+    <a href="/img/bigAutoEncoded.jpg" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>Large Autoencoded</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+</div>
+
+Each of the 8 channels seem to be most active at individual portions of the song. It&rsquo;s also clear from this analysis that individual sections of the song are well diferentiated by the outputs.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>It turns out, not even Christmas Lights are safe from the oncoming <a href="https://www.youtube.com/watch?v=21EiKfQYZXc">AI revolution</a>! This analysis leaves room for quite a bit of additional exploration:</p>
+
+<ul>
+<li>Does the reconstruction work well on songs from other artists/in other genres?</li>
+<li>Is there a way to use stereo sound (only used one side of the input here) to improve the reconstruction and thus the quality of the compressed signal?</li>
+<li>What other architectures could be used? (CNN,RNN)</li>
+<li>Can we classify the songs based on artist or genre?</li>
+<li>Can we get it working on the Raspberry Pi?<br /></li>
+</ul>
+
+<p>For the next post, we&rsquo;ll be exploring how to improve the encoding by removing the end bits from the code, allowing the intermediate features to capture a richer representation of the important parts of the song. I&rsquo;ll also show how we can use a 1D Convolutional Network to build a more accurate classifier. Do you have other ideas? <strong>Comment below to let me know!</strong></p>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:1">There is a problem with tSNE for this application. Because tSNE is non parametric, you cannot translate &lsquo;new&rsquo; inputs into the tSNE space. Effectively you would need to rebuild tSNE for every song. This could presumably be done offline if you have fixed songs, but won&rsquo;t work for the streaming case and is computationally expensive for a Raspberry Pi application.
+ <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
+</ol>
+</div>
 
 
         
@@ -397,6 +490,12 @@ Now, create extract the spectrograms out of the the data. <a href="https://bitbu
               <a href="//tags/keras/">Keras</a>&nbsp;
             
               <a href="//tags/tensorflow/">tensorflow</a>&nbsp;
+            
+              <a href="//tags/christmas/">Christmas</a>&nbsp;
+            
+              <a href="//tags/fft/">FFT</a>&nbsp;
+            
+              <a href="//tags/autoencoder/">Autoencoder</a>&nbsp;
             
           </div>
         
@@ -472,10 +571,6 @@ Now, create extract the spectrograms out of the the data. <a href="https://bitbu
 
       
         <ul class="pager blog-pager">
-          
-            <li class="previous">
-              <a href="/post/2017-03-20-photoswipe-gallery-sample/" data-toggle="tooltip" data-placement="top" title="Photoswipe Gallery Sample">&larr; Previous Post</a>
-            </li>
           
           
         </ul>
