@@ -181,7 +181,7 @@ plt.figure(figsize=(15, 6.5))
 plt.plot(active[intermediateLayerName], linewidth=0.1)
 ```
 ![Small Autoencoded](/img/smallAutoEncoded.jpg)
-Here is a super zoomed version (you have to click the white space, I promise it's worth it.)
+Here is a super zoomed version (you have to click the graph, I promise it's worth it.)
 {{< gallery >}}
 {{< figure link="/img/bigAutoEncoded.jpg" caption="Large Autoencoded" >}}
 {{< /gallery >}}
