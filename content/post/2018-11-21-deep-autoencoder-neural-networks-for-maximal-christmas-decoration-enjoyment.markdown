@@ -18,7 +18,7 @@ subtitle: ''
 image: ''
 ---
 
-My wife loves decorations. From Valentines Day to Easter to Thanksgiving, our house is adorned with interesting festive items. Her favorite season by far is Christmas. Every December we drive around trying to find the best Christmas lights. Inevitably, there are a few houses with lights that blink with the music, something I've always been fascinating with.   
+My wife loves decorations. From Valentines Day to Easter to Thanksgiving, our house is adorned with interesting festive items. Her favorite season by far is Christmas. Every December we drive around trying to find the best Christmas lights. Inevitably, there are a few houses with lights that blink with the music, something I've always been fascinated with.   
 Two years ago I embarked on a mission to build my own Christmas Light Show, specifically this is what I had in mind:  
 
 1. Break music up into even sized chunks  
@@ -212,5 +212,5 @@ It turns out, not even Christmas Lights are safe from the oncoming [AI revolutio
 * Can we classify the songs based on artist or genre?
 * Can we get it working on the Raspberry Pi?   
 
-For the next post, we'll be exploring how to improve the encoding by removing the end bits from the code, allowing the intermediate features to capture a richer representation of the important parts of the song. I'll also show how we can use a 1D Convolutional Network to build a more accurate classifier. Do you have other ideas? **Comment below to let me know!**
+For the next post, we'll be exploring how to improve the encoding by removing the end bits from the song, allowing the intermediate features to capture a richer representation of the important parts of the song. I'll also show how we can use a 1D Convolutional Network to build a more accurate reconstruction. Do you have other ideas? **Comment below to let me know!**
 
