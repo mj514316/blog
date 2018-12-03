@@ -140,7 +140,7 @@ def denseAutoencoder(internalActivation = 'tanh'):
     decoded = Dense(513, activation='sigmoid', name = 'output')(decoded)
 
     autoencoderDense = Model(input_img, decoded)
-    autoencoderDense.compile(optimizer='adam', loss='binary_crossentropy')
+    autoencoderDense.compile(optimizer='adam', loss='mean_squared_error')
     return autoencoderDense
     
 autoencoderDense = denseAutoencoder()
