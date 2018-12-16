@@ -1,0 +1,12 @@
+Blog Ideas:
+
+Bird sound classification
+
+identify whether the Little treehouse story is true:
+  Download a bunch of text
+  Process with spacy
+  pull out the nouns
+  random sample
+  see if null hypothesis is rejected
+  
+  

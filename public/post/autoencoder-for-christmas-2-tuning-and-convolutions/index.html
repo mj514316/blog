@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Autoencoder For Christmas 2: Tuning and Convolutions - Uncertainty...Minimized</title>
+  <meta property="og:title" content="Autoencoder For Christmas 2: Tuning and Convolutions" />
+  <meta name="twitter:title" content="Autoencoder For Christmas 2: Tuning and Convolutions" />
+  <meta name="description" content="I&rsquo;ve found that while typically people are exposed to machine learning on clean datasets with with clear objectives, doing machine learning in real busness environments isn&rsquo;t often that straightforward. You have to think more creatively about what you use for a training set and how you go about training your model. This is most prevelant in Natural Language Processing, where there isn&rsquo;t typically clean labeled dataset for what you want (IMDB sentiment doesn&rsquo;t work very well for the defense industry&hellip;).">
+  <meta property="og:description" content="I&rsquo;ve found that while typically people are exposed to machine learning on clean datasets with with clear objectives, doing machine learning in real busness environments isn&rsquo;t often that straightforward. You have to think more creatively about what you use for a training set and how you go about training your model. This is most prevelant in Natural Language Processing, where there isn&rsquo;t typically clean labeled dataset for what you want (IMDB sentiment doesn&rsquo;t work very well for the defense industry&hellip;).">
+  <meta name="twitter:description" content="I&rsquo;ve found that while typically people are exposed to machine learning on clean datasets with with clear objectives, doing machine learning in real busness environments isn&rsquo;t often that …">
+  <meta name="author" content="Michael C Johnson"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Uncertainty...Minimized",
+    
+    "url": "/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "/post/autoencoder-for-christmas-2-tuning-and-convolutions/",
+          "name": "Autoencoder for christmas 2 tuning and convolutions"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Michael Johnson"
+  },
+  "headline": "Autoencoder For Christmas 2: Tuning and Convolutions",
+  "description" : "I&amp;rsquo;ve found that while typically people are exposed to machine learning on clean datasets with with clear objectives, doing machine learning in real busness environments isn&amp;rsquo;t often that straightforward. You have to think more creatively about what you use for a training set and how you go about training your model. This is most prevelant in Natural Language Processing, where there isn&amp;rsquo;t typically clean labeled dataset for what you want (IMDB sentiment doesn&amp;rsquo;t work very well for the defense industry&amp;hellip;).",
+  "inLanguage" : "en",
+  "wordCount": 1707,
+  "datePublished" : "2018-12-02T00:00:00",
+  "dateModified" : "2018-12-02T00:00:00",
+  "image" : "/img/LightShowPipeline.jpg",
+  "keywords" : [ "Autoencoder, Deep Learning, Raspberry Pi, python, Keras, tensorflow" ],
+  "mainEntityOfPage" : "/post/autoencoder-for-christmas-2-tuning-and-convolutions/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "/img/LightShowPipeline.jpg",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="Autoencoder For Christmas 2: Tuning and Convolutions" />
+<meta property="og:description" content="I&rsquo;ve found that while typically people are exposed to machine learning on clean datasets with with clear objectives, doing machine learning in real busness environments isn&rsquo;t often that straightforward. You have to think more creatively about what you use for a training set and how you go about training your model. This is most prevelant in Natural Language Processing, where there isn&rsquo;t typically clean labeled dataset for what you want (IMDB sentiment doesn&rsquo;t work very well for the defense industry&hellip;).">
+<meta property="og:image" content="/img/LightShowPipelineDeep.jpg" />
+<meta property="og:url" content="/post/autoencoder-for-christmas-2-tuning-and-convolutions/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Uncertainty...Minimized" />
+  <meta name="twitter:title" content="Autoencoder For Christmas 2: Tuning and Convolutions" />
+  <meta name="twitter:description" content="I&rsquo;ve found that while typically people are exposed to machine learning on clean datasets with with clear objectives, doing machine learning in real busness environments isn&rsquo;t often that …">
+  <meta name="twitter:image" content="/img/LightShowPipelineDeep.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@Michael24909206" />
+  <meta name="twitter:creator" content="@Michael24909206" />
+  <link href='/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="/img/LightShowPipelineDeep.jpg" />
+  <meta name="twitter:image" content="/img/LightShowPipelineDeep.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@Michael24909206" />
+  <meta name="twitter:creator" content="@Michael24909206" />
+  <meta property="og:url" content="/post/autoencoder-for-christmas-2-tuning-and-convolutions/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Uncertainty...Minimized" />
+
+  <meta name="generator" content="Hugo 0.51" />
+  <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Uncertainty...Minimized">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="/css/highlight.min.css" /><link rel="stylesheet" href="/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-129788260-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Uncertainty...Minimized</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/page/about/">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="Uncertainty...Minimized" href="/">
+            <img class="avatar-img" src="/img/LightShowPipeline.jpg" alt="Uncertainty...Minimized" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>Autoencoder For Christmas 2: Tuning and Convolutions</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on December 2, 2018
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;9&nbsp;minutes
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1707&nbsp;words
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Michael Johnson
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+<p>I&rsquo;ve found that while typically people are exposed to machine learning on clean datasets with with clear objectives, doing machine learning in real busness environments isn&rsquo;t often that straightforward. You have to think more creatively about what you use for a training set and how you go about training your model. This is most prevelant in Natural Language Processing, where there isn&rsquo;t typically clean labeled dataset for what you want (IMDB sentiment doesn&rsquo;t work very well for the defense industry&hellip;).</p>
+
+<p>The model we built in the previous blog post is an example of this: We are using a proxy objective (minimize reconstruction error of an autoencoder) to achieve our target objective (blink 8 channels in some pleasing fashion). Because of this, it is important to do some sanity checking of the result to see if it did as we intended.</p>
+
+<h2 id="the-pipeline">The Pipeline</h2>
+
+<p>Our origonal pipeline for light show magic was the following:</p>
+
+<p><img src="/img/LightShowPipeline.jpg" alt="Origonal Light Show Pipeline" /></p>
+
+<p>Here is the pipeline we&rsquo;d like to create:</p>
+
+<p><img src="/img/LightShowPipelineDeep.jpg" alt="Origonal Light Show Pipeline" /></p>
+
+<p>The objective is to capture a rich representation of sound with only 8 channels so we can entertain our neighbors with maximal efficiency. Here is the result we got last time:
+
+
+
+<div class="gallery caption-position-bottom caption-effect-slide hover-effect-zoom hover-transition" itemscope itemtype="http://schema.org/ImageGallery">
+	  
+
+<link rel="stylesheet" href="/css/hugo-easy-gallery.css" />
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('//img/bigAutoEncoded.jpg');">
+      <img itemprop="thumbnail" src="/img/bigAutoEncoded.jpg" alt="Large Autoencoded"/>
+    </div>
+    <a href="/img/bigAutoEncoded.jpg" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>Large Autoencoded</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+</div>
+</p>
+
+<h2 id="what-s-wrong">What&rsquo;s Wrong?</h2>
+
+<p>While it&rsquo;s interesting and certainly begins to capture some of the structure of the music, there are a couple problems with the reproduction. If you listen closely to the first part of <a href="https://www.youtube.com/watch?v=MHioIlbnS_A">the song</a>, there is a clear repeating pattern of the violin drawing up and down. Take a look at our first reproduction of the intro:</p>
+
+<p><img src="/img/encodedIntro.jpg" alt="Origonal Light Show Pipeline" /></p>
+
+<p>For the most part, this looks like noise. Some of the channels change levels on the time span we are studying, but the structure of the song doesn&rsquo;t seem well captured = <strong>unhappy neighbors</strong>. There are lots of potential reasons for why this might be. Lets take a look at a plot of the magnitude of each channel over time. Turns out we can hack the function we used before to make a nice representation of this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">keras</span> <span class="kn">import</span> <span class="n">Model</span>
+<span class="kn">from</span> <span class="nn">keract</span> <span class="kn">import</span> <span class="n">get_activations</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pylpot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="n">activeDense</span> <span class="o">=</span> <span class="n">Model</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;denseAutoencoderRound1.hdf5&#39;</span><span class="p">)</span>
+<span class="n">activeDense</span> <span class="o">=</span> <span class="n">get_activations</span><span class="p">(</span><span class="n">autoencoderDense</span><span class="p">,</span> <span class="n">x_test</span><span class="p">)</span>
+
+<span class="n">intermediateLayer</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">activeDense</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">5</span><span class="p">]</span> <span class="c1">#grab the layer with 8</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">activeDense</span><span class="p">[</span><span class="n">intermediateLayer</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">1500</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.54</span><span class="p">)</span></code></pre></div>
+<p><img src="/img/8ChannelBadEnding.png" alt="8 Channel Bad Ending" />
+This shows the magnitude of the 8 intermediate channels of our network, and how they change over time. You can imagine the channel being <strong>on</strong> when the magnitude is above zero (yellow,orange,red) and <strong>off</strong> when the magnitude is below zero (blue). From this plot, one of the training problems is clear: two of the channels seem to be dedicated to minimizing reproduction error at the very end. If you listen to the last 10 seconds of the song, you&rsquo;ll notice that it&rsquo;s very quiet and contains almost nothing of value. This is a waste of our reproduction.</p>
+
+<h2 id="how-do-we-fix-it">How do we fix it?</h2>
+
+<p>Because this end doesn&rsquo;t do much for our light show (it&rsquo;s fine to have the lights dark or doing whatever they want for the last 10 seconds), it makes sense to try to remove it from the training round. There are a few ways that we could approach the problem:</p>
+
+<ol>
+<li>Guess how long the average end section is, and remove that length from every song we train on. (Could remove interesting endings from some songs)</li>
+<li>Set a threshold for minimum noise levels. (Could remove bits from the intro and quite parts in the middle of the song, or songs that have many quite sections)</li>
+<li>Some interesting combination of the above (remove bits that fail a threshold in the last 20 seconds of the song)</li>
+<li><strong>Train a sweet machine learning model</strong>.</li>
+</ol>
+
+<p>While in this case a heuristic/rules based approach might be more effective, lets see if we can train <strong>classification</strong> model to decide whether a given segment is in the end or not.</p>
+
+<h2 id="a-breif-introduction-to-classification">A Breif Introduction to Classification</h2>
+
+<p>In machine learning, classification is the process of mapping an input to a categorical output. This could be mapping the pixes of an image to there proper classification fo cat or dog, or the words in a product review to posotive or negative.<br />
+
+
+
+<div class="gallery caption-position-bottom caption-effect-slide hover-effect-zoom hover-transition" itemscope itemtype="http://schema.org/ImageGallery">
+	  
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('//img/puppy.jpg');">
+      <img itemprop="thumbnail" src="/img/puppy.jpg" alt="Puppy"/>
+    </div>
+    <a href="/img/puppy.jpg" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>Puppy</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('//img/kitten.png');">
+      <img itemprop="thumbnail" src="/img/kitten.png" alt="Kitten"/>
+    </div>
+    <a href="/img/kitten.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>Kitten</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+</div>
+</p>
+
+<p>In this case, we need to map the frequency representation of our song (the 513 frequency buckets) to the labels isEnd or isNotEnd, ideally to build something that can recognize the end of any song that we give it. First, lets use our training set to pick the end of the our training song (A Mad Russian&rsquo;s Christmas):</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">activeTrain</span><span class="p">[</span><span class="n">intermediateLayer</span><span class="p">][</span><span class="mi">23600</span><span class="p">:],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="mi">335</span><span class="p">)</span></code></pre></div>
+<p><img src="/img/madRussionEnd.png" alt="Madd Russian" /></p>
+
+<p>Now build our objective variable. We&rsquo;ll build an array of ones that goes to just before it ends, and an array of zeros that fills in the rest:</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">regularSong</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">23935</span><span class="p">)</span>
+<span class="n">endOfSong</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x_train</span><span class="p">)</span><span class="o">-</span><span class="mi">23935</span><span class="p">)</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">regularSong</span><span class="p">,</span><span class="n">endOfSong</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;Just before end: {y_train[23934]}, just after: {y_train[23935]}, length: {len(full)}, length orig: {len(x_train)}&#34;</span><span class="p">)</span>
+<span class="c1">## Just before end: 1.0, just after: 0.0, length: 24330, length orig: 24330</span></code></pre></div>
+<p>Do the same for the test set (Christmas Sarajevo):</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">y_test</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">16505</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span><span class="o">-</span><span class="mi">16505</span><span class="p">))</span></code></pre></div>
+<p>Now lets try a simple <a href="https://towardsdatascience.com/logistic-regression-detailed-overview-46c4da4303bc">logistic regression</a>, which uses a <em>linear</em> mapping between the inputs (frequency buckets) and outputs (the class). This linear mapping is pushed through a sigmoid function which restricts the outcome to between 0 and 1, and allows us to interpret the results as a probability. Thus, it approxomates the function <em>p(endOfSong|frquencyBuckets)</em> &ldquo;What is the probability this is the end of the song given the frequency distribution&rdquo;:</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="n">endClassifier</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span></code></pre></div>
+<p>Fit on the training set, check accuracy on the test set:</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">testAccuracy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y_hat</span><span class="o">==</span><span class="n">y_test</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;test accuracy: {testAccuracy.round(3)}&#34;</span><span class="p">)</span>
+<span class="c1">## test accuracy: 0.944</span></code></pre></div>
+<p>94% accuracy! This looks good, but lets see what accuracy we would get if we just guessed 1 every time (assume that the whole song is what we want, and there is no end <sup class="footnote-ref" id="fnref:2"><a href="#fn:2">1</a></sup> )</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">naivey_hat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">))</span> <span class="c1"># always guess ones</span>
+<span class="n">naiveAccuracy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">naivey_hat</span><span class="o">==</span><span class="n">y_test</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;Niave accuracy: {testAccuracy.round(3)}&#34;</span><span class="p">)</span>
+<span class="c1">## test accuracy: 0.933</span></code></pre></div>
+<p>So if we randomly guess, we get 93% accuracy, and our model gets 94% accuracy. Not a big improvement</p>
+
+<h2 id="can-we-improve-on-the-model">Can we improve on the model?</h2>
+
+<p>Lets add some simple features to the model to give it some more hints on what might make the end. At this point, the model is taking the magnitude of the frequency buckets in and trying to predict weather or not we are at the end. Intuitively, the end is probably near the <strong>actual</strong> end of the song, so perhaps we can let the model know when we are getting close.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">percentThroughSong_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x_train</span><span class="p">))</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">x_train</span><span class="p">),</span><span class="mi">1</span><span class="p">)</span> <span class="c1">#Expand dims simply makes it a 2d Array so we can append it to our train/test set</span>
+<span class="n">percentThroughSong_test</span> <span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x_test</span><span class="p">))</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">x_test</span><span class="p">),</span><span class="mi">1</span><span class="p">)</span></code></pre></div>
+<p>Retraining gives us a better result:</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">x_train_improved</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">x_train</span><span class="p">,</span><span class="n">percentThroughSong_train</span><span class="p">),</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">improvedEndClassifier</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train_improved</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">),</span> <span class="n">y_train</span><span class="p">)</span></code></pre></div>
+<p>Because logistic regression represents a linear mapping between input and output, <strong>and</strong> because we normalized our inputs to a fixed range, we can use the coefficients magnitude and sign to judge what our algorithm picked as the most important variable:</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">improvedEndClassifier</span><span class="o">.</span><span class="n">coef_</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">improvedEndClassifier</span><span class="o">.</span><span class="n">coef_</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
+<span class="c1">##513</span></code></pre></div>
+<p><img src="/img/logisticRegressionCoeffs.png" alt="Log Reg Coefs" /></p>
+
+<p>This plot reveals a couple of interesting things about how the model arrived at it&rsquo;s conclusion. First off, by far the highest magnitude comes at the very end (feature 513). Because our features are 0 indexed, this is actually the 514th variable, which is the % through song we added manually! So the logistic regression, rightly so, has decided the best way to find the end of the song is to look at how close to the end we are. You can also immediately see that this is not far from some of the rule/heuristic based approaches we had suggested before. Trained on many songs, this would simply pick the average distance from the end of the song and use that as the best guess.</p>
+
+<h2 id="issues-with-logistic-regression">Issues With Logistic Regression</h2>
+
+<p>There are a couple of other issues with the use of logistic regression. Logistic regression doesn&rsquo;t work well when the variables are have high colliniearty. Lets check the correlation plot for our 513 features and see if this could be makingthings more difficult:</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">x_trainDF</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">x_train</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">x_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">x_trainDF</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">corr</span> <span class="o">=</span> <span class="n">x_trainDF</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+
+<span class="c1"># Generate a mask for the upper triangle</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="nb">bool</span><span class="p">)</span>
+<span class="n">mask</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">triu_indices_from</span><span class="p">(</span><span class="n">mask</span><span class="p">)]</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="c1"># Set up the matplotlib figure</span>
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+
+<span class="c1"># Generate a custom diverging colormap</span>
+<span class="n">cmap</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">diverging_palette</span><span class="p">(</span><span class="mi">220</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">as_cmap</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="c1"># Draw the heatmap with the mask and correct aspect ratio</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span>  <span class="n">center</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">square</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=.</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbar_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;shrink&#34;</span><span class="p">:</span> <span class="o">.</span><span class="mi">5</span><span class="p">})</span></code></pre></div>
+<p><img src="/img/correlationPlot.png" alt=" Corrplot" /></p>
+
+<p>This plot shows that <strong>every feature between 0 and ~360 is nearly perfectly correllated with every other feature between 0 and ~360</strong>. It also shows that there is a negative correlation between 462-464 and 0-100, presumably indicating that when there are lots of high frequency notes (462-464) there are fewer low frequency notes (0-100).</p>
+
+<p>Additionally, logilstic regression makes strong assumptions about the world. In this case, it makes the assumption that the relationship between the input frequency buckets and the output (is it the end) is linear. You can fool it by transforming the variables using a non-linear operator (log, exp, ()^2, etc&hellip;), but you have to put it explicitly into the function. Finally, logistic regression does not naturally take into account interaction terms. While you can include interaction terms, you get deeper and deeper into trouble with high collinearity. I suspect these are some of the reasons Jeremy Howard reccomends starting with Random Forest as your first machine learning model in his excellent introduction to machine learning course at <a href="https://course.fast.ai/lessonsml1/lesson1.html">fast.ai</a>.</p>
+
+<p>You can check out my <a href="https://bitbucket.org/mj514316/christmasautoencoder/src/master">bitbucket repo</a> where I applied RF and a simple Feed Forward Neural network, as well as tried to use my autoencoder as a dimensionality reduction technique.</p>
+
+<h2 id="is-pulling-out-the-end-worth-it">Is Pulling Out The End Worth It?</h2>
+
+<p>Lets take a look at how the model does after we take out the end, and if it makes the outcome any better. First, we&rsquo;ll set up the training set with the end carefully removed (based on the experience above, we should probably just clip off the last 10 seconds of each song):</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">endOfSong</span> <span class="o">=</span> <span class="mi">23000</span>
+<span class="n">x_trainMini</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">endOfSong</span><span class="p">]</span></code></pre></div>
+<p>Then train as in the first blog post:</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">autoencoderDense</span> <span class="o">=</span> <span class="n">denseAutoencoder</span><span class="p">()</span>
+<span class="n">autoencoderDense</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_trainMini</span><span class="p">,</span> <span class="n">x_trainMini</span><span class="p">,</span>
+                <span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                <span class="n">batch_size</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span>
+                <span class="n">shuffle</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="c1">#important</span>
+                <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">x_test</span><span class="p">))</span></code></pre></div>
+<p>Grabbing the intermediate interactions again, and plotting the intro:</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">active</span> <span class="o">=</span> <span class="n">get_activations</span><span class="p">(</span><span class="n">autoencoderDense</span><span class="p">,</span> <span class="n">x_trainMini</span><span class="p">)</span>
+<span class="n">intermediateLayer</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">active</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">active</span><span class="p">[</span><span class="n">intermediateLayer</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span></code></pre></div>
+<p><img src="/img/FixedIntro.png" alt="Better Intro" /></p>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:2">In this case we could have simply taken the mean of y_test, but explicitly guessing 1&rsquo;s is a tiny bit more clear
+ <a class="footnote-return" href="#fnref:2"><sup>[return]</sup></a></li>
+</ol>
+</div>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="//tags/autoencoder/">Autoencoder</a>&nbsp;
+            
+              <a href="//tags/deep-learning/">Deep Learning</a>&nbsp;
+            
+              <a href="//tags/raspberry-pi/">Raspberry Pi</a>&nbsp;
+            
+              <a href="//tags/python/">python</a>&nbsp;
+            
+              <a href="//tags/keras/">Keras</a>&nbsp;
+            
+              <a href="//tags/tensorflow/">tensorflow</a>&nbsp;
+            
+          </div>
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+    <ul class="share">
+      
+      <li>
+        <a href="//twitter.com/share?url=%2fpost%2fautoencoder-for-christmas-2-tuning-and-convolutions%2f&amp;text=Autoencoder%20For%20Christmas%202%3a%20Tuning%20and%20Convolutions&amp;via=Michael24909206" target="_blank" title="Share on Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//plus.google.com/share?url=%2fpost%2fautoencoder-for-christmas-2-tuning-and-convolutions%2f" target="_blank" title="Share on Google Plus">
+          <i class="fab fa-google-plus"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.facebook.com/sharer/sharer.php?u=%2fpost%2fautoencoder-for-christmas-2-tuning-and-convolutions%2f" target="_blank" title="Share on Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//reddit.com/submit?url=%2fpost%2fautoencoder-for-christmas-2-tuning-and-convolutions%2f&amp;title=Autoencoder%20For%20Christmas%202%3a%20Tuning%20and%20Convolutions" target="_blank" title="Share on Reddit">
+          <i class="fab fa-reddit"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.linkedin.com/shareArticle?url=%2fpost%2fautoencoder-for-christmas-2-tuning-and-convolutions%2f&amp;title=Autoencoder%20For%20Christmas%202%3a%20Tuning%20and%20Convolutions" target="_blank" title="Share on LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.stumbleupon.com/submit?url=%2fpost%2fautoencoder-for-christmas-2-tuning-and-convolutions%2f&amp;title=Autoencoder%20For%20Christmas%202%3a%20Tuning%20and%20Convolutions" target="_blank" title="Share on StumbleUpon">
+          <i class="fab fa-stumbleupon"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.pinterest.com/pin/create/button/?url=%2fpost%2fautoencoder-for-christmas-2-tuning-and-convolutions%2f&amp;description=Autoencoder%20For%20Christmas%202%3a%20Tuning%20and%20Convolutions" target="_blank" title="Share on Pinterest">
+          <i class="fab fa-pinterest"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+              </div>
+            </section>
+        
+
+        
+          
+          
+          <h4 class="see-also">See also</h4>
+          <ul>
+          
+            <li><a href="/post/deep-autoencoder-neural-networks-for-maximal-christmas-decoration-enjoyment/">Deep Autoencoder Neural Networks for Maximal Christmas Decoration Enjoyment</a></li>
+          
+          </ul>
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="/post/deep-autoencoder-neural-networks-for-maximal-christmas-decoration-enjoyment/" data-toggle="tooltip" data-placement="top" title="Deep Autoencoder Neural Networks for Maximal Christmas Decoration Enjoyment">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+        
+          
+          <div class="disqus-comments">                  
+            <button id="show-comments" class="btn btn-default" type="button">Show <span class="disqus-comment-count" data-disqus-url="post/autoencoder-for-christmas-2-tuning-and-convolutions">comments</span></button>
+            <div id="disqus_thread"></div>
+
+            <script type="text/javascript">
+              var disqus_config = function () {
+              this.page.url = 'post\/autoencoder-for-christmas-2-tuning-and-convolutions';
+            };
+
+          </script>
+          </div>
+          
+        
+        
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:mj514316@domain.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/mj514316" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://bitbucket.org/mj514316" title="Bitbucket">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-bitbucket fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/Michael24909206" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/michael-johnson-5105a053" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            
+            <a href="/index.xml" title="RSS">
+            
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              Michael C Johnson
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2018
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="/">Uncertainty...Minimized</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.51</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="/js/main.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script>
+<script src="/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+<script type="text/javascript">
+$(function(){
+  $('#show-comments').on('click', function(){
+    var disqus_shortname = 'minimizeuncertainty';
+      
+    (function() {
+      var disqus = document.createElement('script'); 
+      disqus.type = 'text/javascript'; 
+      disqus.async = true;
+      disqus.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(disqus);
+    })();
+      
+    $(this).hide(); 
+    });
+  });
+      
+</script>
+<script id="dsq-count-scr" src="//minimizeuncertainty.disqus.com/count.js" async></script>
+
+
+
+
+  </body>
+</html>
+

@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>mj514316@domain.com (Michael C Johnson)</managingEditor>
     <webMaster>mj514316@domain.com (Michael C Johnson)</webMaster>
-    <lastBuildDate>Wed, 21 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 02 Dec 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/autoencoder/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Autoencoder For Christmas 2: Tuning and Convolutions</title>
+      <link>/post/autoencoder-for-christmas-2-tuning-and-convolutions/</link>
+      <pubDate>Sun, 02 Dec 2018 00:00:00 +0000</pubDate>
+      <author>mj514316@domain.com (Michael C Johnson)</author>
+      <guid>/post/autoencoder-for-christmas-2-tuning-and-convolutions/</guid>
+      <description>I&amp;rsquo;ve found that while typically people are exposed to machine learning on clean datasets with with clear objectives, doing machine learning in real busness environments isn&amp;rsquo;t often that straightforward. You have to think more creatively about what you use for a training set and how you go about training your model. This is most prevelant in Natural Language Processing, where there isn&amp;rsquo;t typically clean labeled dataset for what you want (IMDB sentiment doesn&amp;rsquo;t work very well for the defense industry&amp;hellip;).</description>
+    </item>
     
     <item>
       <title>Deep Autoencoder Neural Networks for Maximal Christmas Decoration Enjoyment</title>
