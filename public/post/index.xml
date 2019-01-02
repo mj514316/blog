@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>mj514316@domain.com (Michael C Johnson)</managingEditor>
     <webMaster>mj514316@domain.com (Michael C Johnson)</webMaster>
-    <lastBuildDate>Wed, 21 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 30 Dec 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title> How Many Boys is Too Many?
+</title>
+      <link>/post/statistically-verifying-claims-made-in-childrens-stories-web-scraping-nlp-vectorized-simulation/</link>
+      <pubDate>Sun, 30 Dec 2018 00:00:00 +0000</pubDate>
+      <author>mj514316@domain.com (Michael C Johnson)</author>
+      <guid>/post/statistically-verifying-claims-made-in-childrens-stories-web-scraping-nlp-vectorized-simulation/</guid>
+      <description>We have many, many children. Most days I consider this to be an incredible blessing and they often tend to be the root of statistical curiosity. For example, when we had our third boy in a row1 I started to wonder how many children do you have to have of a given gender before you can conclude that there is something other than random chance influencing to the outcome? In other words, if you have 3 boys in a row does that mean you got &amp;ldquo;lucky&amp;rdquo; or that you are only capable of having boys (or pre-disposed to having boys)?</description>
+    </item>
     
     <item>
       <title>Deep Autoencoder Neural Networks for Maximal Christmas Decoration Enjoyment</title>

@@ -58,9 +58,27 @@
     </item>
     
     <item>
+      <title>Nlp</title>
+      <link>/tags/nlp/</link>
+      <pubDate>Sun, 30 Dec 2018 00:00:00 +0000</pubDate>
+      <author>mj514316@domain.com (Michael C Johnson)</author>
+      <guid>/tags/nlp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Pandas</title>
+      <link>/tags/pandas/</link>
+      <pubDate>Sun, 30 Dec 2018 00:00:00 +0000</pubDate>
+      <author>mj514316@domain.com (Michael C Johnson)</author>
+      <guid>/tags/pandas/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Python</title>
       <link>/tags/python/</link>
-      <pubDate>Wed, 21 Nov 2018 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 30 Dec 2018 00:00:00 +0000</pubDate>
       <author>mj514316@domain.com (Michael C Johnson)</author>
       <guid>/tags/python/</guid>
       <description></description>
@@ -76,11 +94,29 @@
     </item>
     
     <item>
+      <title>Spacy</title>
+      <link>/tags/spacy/</link>
+      <pubDate>Sun, 30 Dec 2018 00:00:00 +0000</pubDate>
+      <author>mj514316@domain.com (Michael C Johnson)</author>
+      <guid>/tags/spacy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Tensorflow</title>
       <link>/tags/tensorflow/</link>
       <pubDate>Wed, 21 Nov 2018 00:00:00 +0000</pubDate>
       <author>mj514316@domain.com (Michael C Johnson)</author>
       <guid>/tags/tensorflow/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Wikipedia</title>
+      <link>/tags/wikipedia/</link>
+      <pubDate>Sun, 30 Dec 2018 00:00:00 +0000</pubDate>
+      <author>mj514316@domain.com (Michael C Johnson)</author>
+      <guid>/tags/wikipedia/</guid>
       <description></description>
     </item>
     
