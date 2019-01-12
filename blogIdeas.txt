@@ -10,6 +10,8 @@ identify whether the Little treehouse story is true:
   see if null hypothesis is rejected
   
 Do the bird blog in pytorch, talk about the differences
+
+Explore Rapids
   
   
   [^transfer]: Transfer learning is the ability to apply a model trained on one task (e.g. image classification) to a different task (e.g. image segmentation). While this has been a staple of computer vision since the [2012 ImageNet result](https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf), NLP has take a while to catch up. If you're interested checkout these 3 breakthrough papers on the topic from this year: [ULMFiT](https://arxiv.org/abs/1801.06146), [ELMo](https://allennlp.org/elmo), and [BERT](https://arxiv.org/abs/1810.04805)
