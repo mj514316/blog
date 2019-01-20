@@ -40,11 +40,29 @@
     </item>
     
     <item>
+      <title>Family</title>
+      <link>/tags/family/</link>
+      <pubDate>Sat, 19 Jan 2019 00:00:00 +0000</pubDate>
+      <author>mj514316@domain.com (Michael C Johnson)</author>
+      <guid>/tags/family/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Fft</title>
       <link>/tags/fft/</link>
       <pubDate>Wed, 21 Nov 2018 00:00:00 +0000</pubDate>
       <author>mj514316@domain.com (Michael C Johnson)</author>
       <guid>/tags/fft/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hypothesis Testing</title>
+      <link>/tags/hypothesis-testing/</link>
+      <pubDate>Sat, 19 Jan 2019 00:00:00 +0000</pubDate>
+      <author>mj514316@domain.com (Michael C Johnson)</author>
+      <guid>/tags/hypothesis-testing/</guid>
       <description></description>
     </item>
     
@@ -58,20 +76,11 @@
     </item>
     
     <item>
-      <title>Nlp</title>
-      <link>/tags/nlp/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <title>Probability</title>
+      <link>/tags/probability/</link>
+      <pubDate>Sat, 19 Jan 2019 00:00:00 +0000</pubDate>
       <author>mj514316@domain.com (Michael C Johnson)</author>
-      <guid>/tags/nlp/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Pandas</title>
-      <link>/tags/pandas/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <author>mj514316@domain.com (Michael C Johnson)</author>
-      <guid>/tags/pandas/</guid>
+      <guid>/tags/probability/</guid>
       <description></description>
     </item>
     
@@ -85,6 +94,15 @@
     </item>
     
     <item>
+      <title>R</title>
+      <link>/tags/r/</link>
+      <pubDate>Sat, 19 Jan 2019 00:00:00 +0000</pubDate>
+      <author>mj514316@domain.com (Michael C Johnson)</author>
+      <guid>/tags/r/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Raspberry Pi</title>
       <link>/tags/raspberry-pi/</link>
       <pubDate>Wed, 21 Nov 2018 00:00:00 +0000</pubDate>
@@ -94,11 +112,11 @@
     </item>
     
     <item>
-      <title>Spacy</title>
-      <link>/tags/spacy/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <title>Simulation</title>
+      <link>/tags/simulation/</link>
+      <pubDate>Sat, 19 Jan 2019 00:00:00 +0000</pubDate>
       <author>mj514316@domain.com (Michael C Johnson)</author>
-      <guid>/tags/spacy/</guid>
+      <guid>/tags/simulation/</guid>
       <description></description>
     </item>
     
@@ -112,11 +130,11 @@
     </item>
     
     <item>
-      <title>Wikipedia</title>
-      <link>/tags/wikipedia/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <title>Tidy</title>
+      <link>/tags/tidy/</link>
+      <pubDate>Sat, 19 Jan 2019 00:00:00 +0000</pubDate>
       <author>mj514316@domain.com (Michael C Johnson)</author>
-      <guid>/tags/wikipedia/</guid>
+      <guid>/tags/tidy/</guid>
       <description></description>
     </item>
     

@@ -1,20 +1,18 @@
 ---
-title: ' How Many Boys is Too Many?
-
-'
+title: ' How Many Boys is Too Many?'
 author: Michael Johnson
-date: '2019-1-12
-'
+date: '2019-01-19'
 slug: How-many-is-too-many
 categories:
   - simulation
   - data science
 tags:
-  - wikipedia
-  - python
-  - SpaCy
-  - NLP
-  - pandas
+  - hypothesis testing
+  - R
+  - simulation
+  - probability
+  - tidy
+  - family
 type: ''
 subtitle: 'Statistical Evaluation of Having Lots of Boys'
 image: 'kids.jpg'
@@ -24,7 +22,7 @@ math: true
 
 
 <p>Anyone who has multiple boys in a row at some point asks themselves a question: did I just get ‘lucky’ or are we only able to have boys? As you can see, we certainly asked that question… <img src="/img/kids.jpg" alt="kids" /></p>
-<p>When we had our third boy in a row I started to wonder: how many children do you have to have of a given sex before you can conclude that there is something other than random chance influencing to the outcome?</p>
+<p>When we had our third boy in a row I started to wonder: how many children do you have to have of a given sex before you can statistically conclude that there is something other than random chance influencing to the outcome?</p>
 <p>We can cast this problem as a classic coin flip probability, and use a statistical measure (the p-value) to make a judgment on if there could be something going on beyond chance. Then we can conclusively and statistically answer the question: <strong>How many is too many?</strong></p>
 <p>Turns out the answer is 5. If you have 5 children in a row, and they are all boys, you can statistically conclude there is something else at play. Or is it 8? Or 9? Perhaps you’ll have to read and decide for yourself…</p>
 <div id="probability-distributions-and-the-null-hypothesis" class="section level1">
@@ -32,33 +30,17 @@ math: true
 <p>Hypothesis testing is one of the most important and foundational concepts to Data Science. Almost every problem involving data can be cast into this framework:</p>
 <ol style="list-style-type: decimal">
 <li>Develop a <strong>null hypothesis</strong>.</li>
-</ol>
-<ul>
-<li>There is an equal probability of having boys and girls.</li>
-</ul>
-<ol start="3" style="list-style-type: decimal">
 <li>Identify the <strong>outcome</strong> you’d like to test (or have observed).</li>
-</ol>
-<ul>
-<li>5 children, all boys</li>
-</ul>
-<ol start="2" style="list-style-type: decimal">
 <li><strong>Calculate/simulate</strong> the probability of the outcome given the null hypothesis.</li>
+<li><strong>Compare</strong> the answer you got above with a predetermined criteria (the p-value) to decide if you can reject the null hypothesis.</li>
 </ol>
-<ul>
-<li>If there is an equal probability of having boys and girls, how likely is it that one family with 5 children will have 5 girls?</li>
-</ul>
-<ol start="3" style="list-style-type: decimal">
-<li><strong>Compare</strong> the answer you got above with a predetermined criteria (the p value) to decide if you can reject the null hypothesis. (typically taken to be 0.05, or 5%)</li>
-</ol>
-<p>The null hypothesis is of assuming <strong>innocent until proven guilty</strong>. In the case of having children, the null hypothesis would assume that the probability of having boys and girls is equal (you are trying to prove that this is is wrong, so you start with the assumption that it is correct). If you are trying to evaluate the fairness of a coin, the null hypothesis suggests the coin is fair. If you are trying to determine if the distribution of defects across a lot of semiconductors is process driven, you assume that defects are equally likely to occur anywhere.</p>
-<p>If you can successfully show (through calculation or simulation) that your observed outcome is highly unlikely under the null hypothesis, you can reject the null hypothesis. This is typically done with things that are easily quantifiable (like coin flips, die rolls, defects), but we follow a similar process with non-quantifiable things. For example, I might judge that the probability that a certain toy ends up under my son’s bed given that he didn’t take it and stash it there is exceptionally low. In this case, the null hypothesis (he is innocent) is rejected because of the evidence (found charger, charger doesn’t have legs).</p>
+<p>The null hypothesis is the statistical equivalent of assuming <strong>innocent until proven guilty</strong>. In the case of having children, the null hypothesis would presume that <em>the probability of having boys and girls is equal</em> (you are trying to prove that this is is wrong, so you start with the assumption that it is correct).</p>
+<p>If you are trying to evaluate the fairness of a coin, the null hypothesis suggests the coin is fair. If you are trying to determine if the distribution of defects across a lot of semiconductors is driven by distance from center of the chip, you assume that defects are equally likely to occur anywhere.</p>
+<p>If you can successfully show (through calculation or simulation) that your observed outcome (in our case, 3 boys in a row) is highly unlikely under the null hypothesis, you can <strong>reject the null hypothesis</strong>. This is typically done with things that are easily quantifiable (like coin flips, die rolls, defects), but we follow a similar process with non-quantifiable things. For example, I might judge that the probability that a certain toy ends up under my son’s bed given that he didn’t take it and stash it there is exceptionally low. In this case, the null hypothesis (he is innocent) is rejected because of the evidence (found charger, charger doesn’t have legs).</p>
 <p>If we did 100 experiments, how many times might we observe our outcome based on random chance?</p>
-<p>When it is applied to a quantifiable problem, we still have to determine a threshold for rejecting the null hypothesis. Do we say that if its less than 50% likely we can reject? How about 20%? How about 10%? This number is typically taken to be .05, or 5 out of 100. As you will se below, there is some contention about this number, and rightly so.</p>
-<p>One more thing must be said about the null hypothesis. Rejecting it does not prove our alternate hypothesis, just suggests that random chance is not the most likely driver for the outcome. If you reject the null hypothesis because you have a certain number of boys, you can’t immediatly accept that boys are all you can have.</p>
 <div id="calculating-the-odds" class="section level2">
 <h2>Calculating The Odds</h2>
-<p>Once you’ve formulated your null hypothesis, how do you go about calculating the result? For our simple case, where we can define binary outcomes (boy/girl, heads/tails, pass/fail, etc…), and we’re interested in calculating the probability of an outcome that meets a specified criteria (5 girls out of 5 children), the binomial distribution allows us to calculate this directly.</p>
+<p>For our simple case, where we can define binary outcomes (boy/girl, heads/tails, pass/fail, etc…), and we’re interested in calculating the probability of an outcome that meets a specified criteria (5 girls out of 5 children), the binomial distribution allows us to calculate this directly.</p>
 <p>The binomial distribution is given by:</p>
 <p><span class="math inline">\(\mathrm{P}(X=k) = \binom{n}{k} p^k(1-p)^{n-k}\)</span></p>
 <p>where <span class="math inline">\(k\)</span> is equal to the number of success (in this case the number of boys), <span class="math inline">\(n\)</span> is the number of <a href="https://www.youtube.com/watch?v=vT-n8dbXJoU">Bernoulli trials</a> (in this case, the number of children) and <span class="math inline">\(p\)</span> is the probability of boys or girls (our null hypothesis puts this at 50%). Our case is a simple version of the above, where <span class="math inline">\(k = n\)</span>, and <span class="math inline">\(p = 1-p = 0.5)\)</span> so the equation above simplifies to:</p>
@@ -73,8 +55,8 @@ data_frame(numChildren = 1:10) %&gt;%
   geom_hline(yintercept=.05, linetype=&quot;dashed&quot;, color = &quot;red&quot;) + 
   scale_y_continuous(labels = scales::percent) + 
   ggtitle(&quot;Probability That All Children Will be Boys By Family Size&quot;)</code></pre>
-<p><img src="/post/2018-12-30-statistically-verifying-claims-made-in-childrens-stories-web-scraping-nlp-vectorized-simulation_files/figure-html/unnamed-chunk-1-1.png" width="672" /> This chart shows that if the probability of boy and girl are equal, and you sampled 100 families with 5 children, you would expect ~3 of them to have all boys!</p>
-<p>Often I encounter problems that are complicated enough that analytical solution (like the one above) is difficult or impossible. In this case we can employ my favorite method for doing hypothesis testing: Simulation.</p>
+<p><img src="/post/2018-12-30-statistically-verifying-claims-made-in-childrens-stories-web-scraping-nlp-vectorized-simulation_files/figure-html/unnamed-chunk-1-1.png" width="672" /> This chart shows that if the probability of boy and girl are equal, and you sampled 100 families with 5 children, <em>you would expect ~3 of the families to have all boys</em>!</p>
+<p>Often I encounter problems that are complicated enough that the odds are not directly calculable . In this case we can employ my favorite method for doing hypothesis testing: Simulation.</p>
 </div>
 <div id="a-simple-simulation" class="section level2">
 <h2>A Simple Simulation</h2>
@@ -96,8 +78,8 @@ oneFamily</code></pre>
 <pre class="r"><code>sum(oneFamily)</code></pre>
 <pre><code>## [1] 2</code></pre>
 <p>And we have the number of boys for this family.</p>
-<p>To get the p value from our plot above, we need to do this procedure for 10,000 or so pretend families, and then calculate the percentage of those trials that match our observation (sum to a total of 5).</p>
-<p>It turns out R gives us a shortcut to this, allowing us to get the number of boys posotive outcomes from successive Bernoulli trials quite easily:</p>
+<p>To get the p-value from our plot above, we need to do this procedure for 10,000 or so pretend families, and then calculate the percentage of those trials that match our observation (sum to a total of 5).</p>
+<p>It turns out R gives us a shortcut to this, allowing us to get the number of boys positive outcomes from successive Bernoulli trials quite easily:</p>
 <pre class="r"><code>set.seed(1)
 numberOfChildren =5
 numberOfFamilies = 1
@@ -115,16 +97,17 @@ print(paste0(&quot;First Family: &quot;, tenkFamilies[1], &quot; Boys, 5010th Fa
 <p>How often do we get all boys?</p>
 <pre class="r"><code>mean(tenkFamilies == 5)</code></pre>
 <pre><code>## [1] 0.0328</code></pre>
-<p>3.2% is close to the number we arrived at above (3.125) but not exactly. There are two reasons for this.<br />
-<strong>First</strong>, because we are simulating randomness, the outcome of any given experiment (in this case 10000 families) will drift around 3.125, but won’t be precisely 3.125. You can reduce <a href="https://www.youtube.com/watch?v=BwYj69LAQOI">the standard error</a> in the estimate by sampling more families (try 100000000), with error going to zero as numberOfFamilies approaches infinity.<br />
-<strong>Second</strong>, even with more samples, there is likely to be some error in our estimate due to the fact that the random number generator on our computer is not ‘truly’ random. It is a reasonable approximation of randomness, but it turns out randomness is not so easy to generate.</p>
-<p>The threshold typically held for rejecting the null hypothesis is 5%. This suggests that if your family with 5 children has only boys, <strong>you can statistically reject the null hypothesis and conclude that this result is not due to random chance</strong>! Well, not so fast…</p>
+<p>3.2% is close to the number we arrived at above (3.125) but not exactly. There are two reasons for this.</p>
+<p><strong>First</strong>, because we are simulating randomness, the outcome of any given experiment (in this case 10000 families) will drift around 3.125, but won’t be precisely 3.125. You can reduce <a href="https://www.youtube.com/watch?v=BwYj69LAQOI">the standard error</a> in the estimate by sampling more families (try 100000000), with error going to zero as numberOfFamilies approaches infinity.</p>
+<p><strong>Second</strong>, even with more samples, there is likely to be some error in our estimate due to the fact that the random number generator on our computer is not ‘truly’ random. It is a reasonable approximation of randomness, but it turns out randomness is not so easy to generate.</p>
+<p>The threshold typically held for rejecting the null hypothesis is 5% or 5 families with this observation out of 100 total families. This suggests that if your family with 5 children has only boys, <strong>you can statistically reject the null hypothesis and conclude that this result is not due to random chance</strong>! You assumed innocence (normal probability), simulated a bunch of outcomes, and found that the observed outcome (5 children, only boys) is sufficiently rare to believe it isn’t due to random chance.</p>
+<p>Well, not so fast…</p>
 </div>
 <div id="some-problems-with-our-conclusion" class="section level2">
 <h2>Some Problems With Our Conclusion</h2>
 <p>While it is nice to have a conclusive line drawn in the sand about statistical significance, there are several problems with this conclusion. First, note that even with random chance, a non-trivial number of families out of 100 are likely to have <em>all girls</em> or <em>all boys</em>. Given the number of families with children, we must expect at least <em>some</em> of them will have children of only one sex. We could consider the entire distribution of families and discover if it deviates from our expectation, but drawing conclusions based on one family seems difficult in this case</p>
-<p>It turns out that this issue has importance beyond simple curiosity. A p-value of 0.05 has been used as the standard across many scientific disciplines as a threshold for declaring a finding statistically significant and therefore publishable. Setting the bar too low means that we might not have reproduceable results (in other words, some papers will print results that aren’t actually true). Setting the bar too high means that important results won’t be able to be published.</p>
-<p>It would appear that the <a href="https://www.nature.com/news/1-500-scientists-lift-the-lid-on-reproducibility-1.19970">evidence</a> is coming out on the side that the 0.05 threshold is too low, and thus, there has been a <a href="https://jamanetwork.com/journals/jama/article-abstract/2676503">push recently</a> to lower the threshold for the p value from 0.05 to 0.005, or 0.5%. Partially derivative did a nice podcast on this, check it out <a href="http://partiallyderivative.com/podcast/2017/08/08/p-values">here</a>.</p>
+<p>It turns out that this issue has importance beyond simple curiosity. A p-value of 0.05 has been used as the standard across many scientific disciplines as a threshold for declaring a finding statistically significant and therefore publishable. Setting the bar too low means that we might not have reproduceable results setting the bar too high means that important results won’t be be published.</p>
+<p>It would appear that the <a href="https://www.nature.com/news/1-500-scientists-lift-the-lid-on-reproducibility-1.19970">evidence</a> is coming out on the side that the 0.05 threshold is too low, and thus, there has been a <a href="https://jamanetwork.com/journals/jama/article-abstract/2676503">push recently</a> to lower the threshold for the p-value from 0.05 to 0.005, or 0.5%. Partially derivative did a nice podcast on this, check it out <a href="http://partiallyderivative.com/podcast/2017/08/08/p-values">here</a>.</p>
 </div>
 <div id="p-hacking" class="section level2">
 <h2>P Hacking</h2>
@@ -149,10 +132,11 @@ print(paste0(&quot;First Family: &quot;, tenkFamilies[1], &quot; Boys, 5010th Fa
 <img src="/img/manyFamilies.gif" alt="Lots of Families" />
 <p class="caption">Lots of Families</p>
 </div>
-<p>In practice, there are several ways to accidentally find that something is statstically significant. For example, you could simply repeat an experiment until a statistically significant finding is observed. More practically, in the course of experimentation, you might be testing hundreds or thousands of hypothesis at once.</p>
-<p>Perhaps you want to study what is influencing the defect rate for a particular product. You collect several thousand variables gathered during the manufacturing process and build a statistical model that predicts the defect rate. In a sense, you are performing thousands and thousands of experiments. Because of this, its highly likely that some of the variables will have statistically significant (p&lt;0.05) correlation to the outcome <strong>even there is absolutely no correlation!</strong></p>
-<p>This stresses why it is important to evaluate the outcome of these types of experiments with a subject matter expert. Is there some physical or process explaination as to why these are correlated? Does this lead you towards another hypothesis you could use to independently verify the result?</p>
-<p>How many children do we need to meet the more stringent p value suggested by the literature?</p>
+<p>In practice, there are several ways to accidentally find that something is statistically significant. For example, you could simply repeat an experiment until a statistically significant finding is observed. More practically, in the course of experimentation, you might be testing hundreds or thousands of hypothesis at once.</p>
+<p>Perhaps you want to study what is influencing the defect rate for a particular widget You collect several thousand variables gathered during the manufacturing process and build a statistical model that predicts the defect rate. In a sense, you are performing thousands and thousands of experiments (probability of defect rate given feature 1,2,3).</p>
+<p>Because of this, its highly likely that some of the variables will have statistically significant (p&lt;0.05) correlation to the outcome <strong>even there is absolutely no correlation!</strong></p>
+<p>This stresses why it is important to evaluate the outcome of these types of experiments with a subject matter expert. Is there some physical or process explanation as to why these are correlated? Does this lead you towards another hypothesis you could use to independently verify the result?</p>
+<p>How many children do we need to meet the more stringent p-value suggested by the literature?</p>
 <pre class="r"><code>library(tidyverse)
 data_frame(numChildren = 1:10) %&gt;%
   mutate(probabilityAllBoys = 0.5^numChildren) %&gt;%
@@ -163,9 +147,9 @@ data_frame(numChildren = 1:10) %&gt;%
   scale_y_continuous(labels = scales::percent) + 
   ggtitle(&quot;Probability That All Children Will be Boys By Family Size&quot;)</code></pre>
 <p><img src="/post/2018-12-30-statistically-verifying-claims-made-in-childrens-stories-web-scraping-nlp-vectorized-simulation_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
-<p>If you have 8 children, and they are all one sex, you might have a problem on your hands.</p>
+<p>The new, more stringent p-value threshold suggests that if you have 8 children, and they are all one sex, you might have a problem on your hands.</p>
+<p><strong>But lets be honest, if you have 8 children, you already have enough to worry about!</strong></p>
 <p>But have we formulated the problem properly? What we really care about is how many children would you have to have of <em>either sex</em> to conclude something is wrong. To calculate the probability of this, you double all of the probabilities above. Doing so lands us at 9 children.</p>
-<p><strong>But lets be honest, if you have 9 children, you already have enough problems to worry about!</strong></p>
-<p>If you made it this far, hope you enjoyed reading, and stay tuned for my next blog post which will use the simluation principle developed here to statistically verify claims made in childrens stories with web scraping, nlp, and parrallelized simulation!</p>
+<p>If you made it this far, hope you enjoyed reading, and stay tuned for my next blog post which will use the simulation principle developed here to statistically verify claims made in childrens stories with web scraping, nlp, and parallelized simulation.</p>
 </div>
 </div>

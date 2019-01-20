@@ -3,16 +3,17 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/post/how-many-is-too-many/</loc>
+    <lastmod>2019-01-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/post/deep-autoencoder-neural-networks-for-maximal-christmas-decoration-enjoyment/</loc>
     <lastmod>2018-11-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/page/about/</loc>
-  </url>
-  
-  <url>
-    <loc>/post/how-many-is-too-many/</loc>
   </url>
   
   <url>
@@ -38,6 +39,7 @@
   
   <url>
     <loc>/categories/data-science/</loc>
+    <lastmod>2019-01-19T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -48,8 +50,20 @@
   </url>
   
   <url>
+    <loc>/tags/family/</loc>
+    <lastmod>2019-01-19T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/tags/fft/</loc>
     <lastmod>2018-11-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/hypothesis-testing/</loc>
+    <lastmod>2019-01-19T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -60,23 +74,19 @@
   </url>
   
   <url>
-    <loc>/tags/nlp/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>/page/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/pandas/</loc>
+    <loc>/post/</loc>
+    <lastmod>2019-01-19T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/post/</loc>
-    <lastmod>2018-11-21T00:00:00+00:00</lastmod>
+    <loc>/tags/probability/</loc>
+    <lastmod>2019-01-19T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -87,18 +97,26 @@
   </url>
   
   <url>
+    <loc>/tags/r/</loc>
+    <lastmod>2019-01-19T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/tags/raspberry-pi/</loc>
     <lastmod>2018-11-21T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/categories/simulation/</loc>
+    <loc>/tags/simulation/</loc>
+    <lastmod>2019-01-19T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/spacy/</loc>
+    <loc>/categories/simulation/</loc>
+    <lastmod>2019-01-19T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -115,13 +133,14 @@
   </url>
   
   <url>
-    <loc>/</loc>
-    <lastmod>2018-11-21T00:00:00+00:00</lastmod>
+    <loc>/tags/tidy/</loc>
+    <lastmod>2019-01-19T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/wikipedia/</loc>
+    <loc>/</loc>
+    <lastmod>2019-01-19T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

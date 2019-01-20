@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>mj514316@domain.com (Michael C Johnson)</managingEditor>
     <webMaster>mj514316@domain.com (Michael C Johnson)</webMaster>
-    <lastBuildDate>Wed, 21 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 19 Jan 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title> How Many Boys is Too Many?</title>
+      <link>/post/how-many-is-too-many/</link>
+      <pubDate>Sat, 19 Jan 2019 00:00:00 +0000</pubDate>
+      <author>mj514316@domain.com (Michael C Johnson)</author>
+      <guid>/post/how-many-is-too-many/</guid>
+      <description>Anyone who has multiple boys in a row at some point asks themselves a question: did I just get ‘lucky’ or are we only able to have boys? As you can see, we certainly asked that question… When we had our third boy in a row I started to wonder: how many children do you have to have of a given sex before you can statistically conclude that there is something other than random chance influencing to the outcome?</description>
+    </item>
     
     <item>
       <title>Deep Autoencoder Neural Networks for Maximal Christmas Decoration Enjoyment</title>
@@ -20,16 +29,6 @@
       <guid>/post/deep-autoencoder-neural-networks-for-maximal-christmas-decoration-enjoyment/</guid>
       <description>My wife loves decorations. From Valentines Day to Easter to Thanksgiving, our house is adorned with interesting festive items. Her favorite season by far is Christmas. Every December we drive around trying to find the best Christmas lights. Inevitably, there are a few houses with lights that blink with the music, something I&amp;rsquo;ve always been fascinated with.
 Two years ago I embarked on a mission to build my own Christmas Light Show, specifically this is what I had in mind:</description>
-    </item>
-    
-    <item>
-      <title> How Many Boys is Too Many?
-</title>
-      <link>/post/how-many-is-too-many/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <author>mj514316@domain.com (Michael C Johnson)</author>
-      <guid>/post/how-many-is-too-many/</guid>
-      <description>Anyone who has multiple boys in a row at some point asks themselves a question: did I just get ‘lucky’ or are we only able to have boys? As you can see, we certainly asked that question… When we had our third boy in a row I started to wonder: how many children do you have to have of a given sex before you can conclude that there is something other than random chance influencing to the outcome?</description>
     </item>
     
   </channel>
