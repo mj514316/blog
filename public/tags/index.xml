@@ -42,7 +42,7 @@
     <item>
       <title>Family</title>
       <link>/tags/family/</link>
-      <pubDate>Sat, 19 Jan 2019 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 25 Jan 2019 00:00:00 +0000</pubDate>
       <author>mj514316@domain.com (Michael C Johnson)</author>
       <guid>/tags/family/</guid>
       <description></description>
@@ -76,6 +76,15 @@
     </item>
     
     <item>
+      <title>Nlp</title>
+      <link>/tags/nlp/</link>
+      <pubDate>Fri, 25 Jan 2019 00:00:00 +0000</pubDate>
+      <author>mj514316@domain.com (Michael C Johnson)</author>
+      <guid>/tags/nlp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Probability</title>
       <link>/tags/probability/</link>
       <pubDate>Sat, 19 Jan 2019 00:00:00 +0000</pubDate>
@@ -87,7 +96,7 @@
     <item>
       <title>Python</title>
       <link>/tags/python/</link>
-      <pubDate>Wed, 21 Nov 2018 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 25 Jan 2019 00:00:00 +0000</pubDate>
       <author>mj514316@domain.com (Michael C Johnson)</author>
       <guid>/tags/python/</guid>
       <description></description>
@@ -114,9 +123,18 @@
     <item>
       <title>Simulation</title>
       <link>/tags/simulation/</link>
-      <pubDate>Sat, 19 Jan 2019 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 25 Jan 2019 00:00:00 +0000</pubDate>
       <author>mj514316@domain.com (Michael C Johnson)</author>
       <guid>/tags/simulation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Spacy</title>
+      <link>/tags/spacy/</link>
+      <pubDate>Fri, 25 Jan 2019 00:00:00 +0000</pubDate>
+      <author>mj514316@domain.com (Michael C Johnson)</author>
+      <guid>/tags/spacy/</guid>
       <description></description>
     </item>
     
@@ -135,6 +153,15 @@
       <pubDate>Sat, 19 Jan 2019 00:00:00 +0000</pubDate>
       <author>mj514316@domain.com (Michael C Johnson)</author>
       <guid>/tags/tidy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Web Scraping</title>
+      <link>/tags/web-scraping/</link>
+      <pubDate>Fri, 25 Jan 2019 00:00:00 +0000</pubDate>
+      <author>mj514316@domain.com (Michael C Johnson)</author>
+      <guid>/tags/web-scraping/</guid>
       <description></description>
     </item>
     
