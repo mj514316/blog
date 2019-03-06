@@ -76,11 +76,29 @@
     </item>
     
     <item>
+      <title>Monte Carlo</title>
+      <link>/tags/monte-carlo/</link>
+      <pubDate>Fri, 25 Jan 2019 00:00:00 +0000</pubDate>
+      <author>mj514316@domain.com (Michael C Johnson)</author>
+      <guid>/tags/monte-carlo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Nlp</title>
       <link>/tags/nlp/</link>
       <pubDate>Fri, 25 Jan 2019 00:00:00 +0000</pubDate>
       <author>mj514316@domain.com (Michael C Johnson)</author>
       <guid>/tags/nlp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Pandas</title>
+      <link>/tags/pandas/</link>
+      <pubDate>Fri, 25 Jan 2019 00:00:00 +0000</pubDate>
+      <author>mj514316@domain.com (Michael C Johnson)</author>
+      <guid>/tags/pandas/</guid>
       <description></description>
     </item>
     
