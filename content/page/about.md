@@ -19,4 +19,6 @@ Temperature stabilization in semiconductors using the magnetocaloric effect: [US
 # Talks:
 CNN and LSTM Based Approaches For Document Classification. [Nvidia GTC DC 2018](https://gtcwashingtondc2018.smarteventscloud.com/connect/sessionDetail.ww?SESSION_ID=251469)
 
+NLP From Scratch: solving the cold start problem for natural language processing [Strata 2019](https://conferences.oreilly.com/strata/strata-ca/public/schedule/detail/72931)
+
 All opinions and views are my own and do not represent my employer.

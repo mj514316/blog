@@ -1,5 +1,5 @@
 ---
-title: Statistically Verifying Claims Made in Childrens Stories
+title: Monte Carlo Simulation For Childrens Stories
 author: Michael Johnson
 date: '2019-01-25'
 slug: statistically-verifying-claims-made-in-childrens-stories
@@ -15,7 +15,7 @@ tags:
   - family
   - monte carlo
 type: ''
-subtitle: 'Using web scraping, SpaCy, and simulation to check basic logic'
+subtitle: 'Using web scraping, SpaCy, and monte carlo simulation to check children story logic'
 image: ''
 ---
 Bedtime has historically been a battle for our family. Kids have this impressive ability to fall asleep when you want them awake and vigorously stay awake when you want them to sleep. To combat the insanity, we read a few books every night before bed. There is a great series of books for young children called "[The Magic Tree House](https://www.magictreehouse.com/)". The series follows two children (Jack and Annie) who transport to other times and places for some mystery or adventure.  
@@ -29,7 +29,7 @@ I immediately thought, *I wonder if that is a statistically valid proposition?*.
 # The Plan
 In order to verify the assertion Jack makes, we need to attempt to determine the probability that you would have a friend and then happen upon two items that all start with the same letter *assuming you found these things at random*. 
 
-For example, if we have 1,000 parallel universes (or 100,000) and the Jack's and Annie's made random friends and found random items, in how many universes *would all of these items start with the same letter*?
+For example, if we have 1,000 parallel universes (or 100,000) and the Jack's and Annie's of these worlds made random friends and found random items, in how many universes *would all of these items start with the same letter*?
 
 This is our null hypothesis, discussed in detail in my [previous post](https://minimizeuncertainty.com/post/how-many-is-too-many/). If we find the likelihood of our observation under the null hypothesis is less than our accepted criteria of 0.05, we'll have grounds for rejecting it in favor of an alternate hypothesis.
 
@@ -50,9 +50,9 @@ Here is a possible outcome:
 To figure out if the hypothesis that Jack makes is feasible, you could do this 1000 times, making note of the times when all of your draws have the same letter. If that number is smaller than our p-value (also discussed in my last post), you are well on your way to rejecting the null hypothesis.
 
 # The Problem: Filling Urns
-The *one* hitch in our plan is that filling those urns will take way more time than it's worth. (Lets be honest, this has already taken more time than its worth). Instead of wandering around in the world to fill the buckets, what if we pulled names of people and things from the written world instead of the real world? 
+The *one* hitch in our plan is that filling those urns will take way more time than it's worth. (Lets be honest, this has already taken more time than its worth). Instead of wandering around in the world to fill the buckets, what if we pulled names of people and things from the written world?
 
-Why not scrape Wikipedia for every childrens author, process the text through an NLP pipeline, and use entity extraction and part of speech tagging to find people and things?
+One approach would be to scrape Wikipedia for every childrens author, process the text through an NLP pipeline, and use entity extraction and part of speech tagging to find people and things.
 
 While it will certainly reduce the amount of time until the end of this blog post, it comes at the price of having to make several assumptions. Namely, you have to assume that the distribution of people names in the Wikipedia articles we are scraping is similar to the names of people in the real world who you could be friends with (in other words, we have to assume you are quite friendly)... Additionally, not every noun is something you could pick up (can you pick up the internet?). 
 
@@ -83,7 +83,7 @@ sys.path.append("C:/Users/mj514/Documents/magicTreeHouseSimulation")
 
 
 ```python
-import wikipedia
+import wikipedia # A suprisingly satisfying import statement
 import numpy as np
 import matplotlib.pyplot as plt
 result = wikipedia.search('Childrens Author')
@@ -91,7 +91,7 @@ result
 ```
 
 ```
-## ["Children's literature", 'Alicia Previn', 'Sam Angus (writer)', "Alvin Schwartz (children's author)", "Douglas Evans (children's author)", 'Renee Ahdieh', "Ruth White (children's author)", 'Author! Author! (film)', "Al Perkins (children's author)", 'Roald Dahl']
+## ["Children's literature", 'Alicia Previn', 'Sam Angus (writer)', "Alvin Schwartz (children's author)", 'Renee Ahdieh', "Al Perkins (children's author)", "Douglas Evans (children's author)", "David Elliott (children's author)", 'Author! Author! (film)', "Ruth White (children's author)"]
 ```
 
 We could use the Childrens Literature page as a jumping off point, lets see what's in there:
@@ -113,7 +113,8 @@ print(len(lit.links))
 ## 702
 ```
 
-There are some random links, but many of the links appear to be to childrens authors or childrens books. we'll walk through each of these links, grab the page from Wikipedia, and store the contents:
+
+ are some random links, but many of the links appear to be to childrens authors or childrens books. We'll walk through each of these links, grab the page from Wikipedia, and store the contents:
 
 
 ```python
@@ -143,7 +144,7 @@ with open('childrensAuthorContent.json', 'w') as infile:
 ```
 
 # NLPing
-Now that we have a bunch of text, we need to find a way to grab the people and the things. Spacy has an excellent, well documented, clean API that will give us everything we'll need. Load the things we need, including SpaCy's pipe which allows for parrallelization.
+Now that we have a bunch of text, we need to find a way to grab the people and the things. Spacy has an excellent, well documented, clean API that will give us everything we need to extract the interesting text. 
 
 
 ```python
@@ -152,7 +153,7 @@ import json
 from collections import Counter
 import pandas as pd
 import numpy as np
-from spacy.pipeline import Pipe
+from spacy.pipeline import Pipe # Allows for parralelization 
 import itertools
 nlp = spacy.load('C:/Users/mj514/Anaconda3/lib/site-packages/en_core_web_lg/en_core_web_lg-2.0.0') 
 ```
@@ -170,7 +171,7 @@ for doc in nlp.pipe(loaded, n_threads=16, batch_size=1000):
 
 [^2]: I tried for a while to figure out how to limit it to just things you can pick up. For example, could we use the dependency parse and identify objects which are acted on by people. In the end I decided to take any noun, but if you can come up with a better way, let me know in the comments!
 
-The output of this is a list of lists. To collapse these to one list to create our urns of various flavor, we'll use itertools. I found this a rather dirty, if anyone has tips on how to avoid needing to collapse the list let me know in the comments...
+The output of this is a list of lists. In order to create our various flavor of urns we need to collapse this nested structure into one list using itertools. I found this a rather dirty, if anyone has tips on how to avoid needing to collapse the list let me know in the comments...
 
 
 
@@ -179,7 +180,7 @@ The output of this is a list of lists. To collapse these to one list to create o
 nounList = list(itertools.chain.from_iterable(nounLists))
 peopleList = sum(peopleLists,[])
 ```
-Because of our biased sample, some of the words we've extracted might be skewed towards the topic of childrens books. Lets take a look at the top ten most popular nouns in our scraping exercise:
+Because of our biased sample (seeded the search with the childrens author page), some of the words we've extracted might be skewed towards the topic of childrens books. Lets take a look at the top ten most popular nouns in our scraping exercise:
 
 
 ```python
@@ -190,7 +191,7 @@ print(stopList)
 
 # ['book', 'child', 'year', 'story', 'work', 'time', '–', '=', 'century', 'series']
 ```
-Book,  child, story and series are all associated with the theme we scraped (childrens authors). as you can see SpaCy picked up some words which are clearly not nouns (-, =). We can safely remove these words from the list, and because they are the most popular words, removing them will have an outsized effect on the answer. 
+Book,  child, story and series are all associated with the theme we scraped (childrens authors). Additionally SpaCy picked up some words which are clearly not nouns (-, =). We can safely remove these words from the list, and because they are the most popular words, removing them will have an outsized effect on the answer. 
 
 Conventional wisdom suggests that following this process of removing 'stop words' (words like 'the', 'a', 'it', pronouns, etc...) will improve the outcome of your NLP exercise because these words don't add much meaning but instead adding to the noise. 
 
@@ -238,11 +239,11 @@ peopleUrn = peopleUrn[~(peopleUrn.name.str.replace('/p{P}+','',regex = True).str
 
 [^1]: One thing to note, you could do these sorts of operations on the list before making it a DataFrame, or element by element by using .apply(). Both of theses methods are slower than the str.replace and str.contains method because the latter methods are vectorized.
 
-We've scavenged the internet to fill our urns with people and things we need for our overkill simulation we have everything in place to execute our master plan.
+We've scavenged the internet to fill our urns with people and things we need for our overkill simulation. **We fainally have everything in place to execute our master plan.**
 ![Ready](https://media.giphy.com/media/13HdQUsXSa6QYU/giphy.gif)
 
 # Monte Carlo Simulation
-We have our urns built (a pandas DataFrame for nouns and one filled with peoples names) and we need to do the sampling. Before watching some of David Robinson's [excellent videos](https://www.youtube.com/watch?v=TDzd73z8thU) on 'tidy simulation', I would normally do the next part using a typical for loop:
+Before watching some of David Robinson's [excellent videos](https://www.youtube.com/watch?v=TDzd73z8thU) on 'tidy simulation', I would normally do the simulations using a for loop:
 
 ```python
 #for i in range(1:numberOfSimulations):
@@ -257,9 +258,11 @@ To me, this is a very intuitive way to code the solution because it follows what
 
 **1000 Times...** 
 
-This isn't very fast, and it certainly isn't compact. Turns out you can do the same with a DataFrame, but the paradigm is a little different. Instead of drawing from all three urns each iteration, you draw everything you need from each urn in one shot. So if you want to do 1000 simulations, you draw 1000 names, then 1000 things, then 1000 more things, and paste all the results together in the end.
+This isn't very fast, and it certainly isn't compact. Turns out you can do the same with a DataFrame, but the paradigm is a little different. Instead of drawing from all three urns each iteration, *you draw everything you need from each urn in one shot*. 
 
-Pandas sample method will facilitate the drawing. Note that the reset_index simply returns a DataFrame instead of a series:
+If you want to do 1000 simulations, you draw 1000 names, then 1000 things, then 1000 more things, and paste all the results together in the end.
+
+Pandas sample method will facilitate the drawing:
 
 
 ```python
@@ -270,7 +273,7 @@ sampledThingsAgain = thingsDF.sample(n = numSamples, replace = True).rename(colu
 fullSamples = pd.concat([sampledPeople,sampledThings,sampledThingsAgain], axis = 1)
 ```
 
-lets peak at our resulting universes:
+Lets peak at our resulting universes:
 
 ```python
 fullSamples.head(5)
@@ -296,9 +299,9 @@ np.mean(fullSamples.isMagicMatch)*100
 ```
 This result says that under the null hypothesis (the children found the items and made a friend at random), the likelihood of the observation (friends name and first two items start with the same letter) is only 0.39%, which is clearly smaller than our present (5%) and proposed (0.5%) criteria for rejecting the null hypothesis.
 
-In other words *we can statistically conclude that something other than random chance is influencing the distribution of things being collected in our childrens story*: an alternate hypothesis should be considered.
+In other words *we can statistically conclude that something other than random chance is influencing the distribution of things being collected in our childrens story*. An alternate hypothesis should be considered.
 
-This doesn't *necissarily* mean that the most likely hypothesis is that all 4 of the items will start with the same letter (can you think of a way to use our simulation to assess the probability of that hypothesis?), but it suggests that Annie's suspicion about how things have turned out so far is on point.
+This doesn't *necissarily* mean that the most likely hypothesis is that all 4 of the items will start with the same letter (can you think of a way to use our simulation to assess the probability of that hypothesis?), but it suggests that Jack's suspicion about how things have turned out so far is on point.
 
 Here is a sampling of our simulations that matched our observed outcome:
 
@@ -313,9 +316,9 @@ fullSamples[fullSamples.isMagicMatch].head()
 # 1773 	elementary 	education 	ed
 ```
 
-**Spolier Alert**: If you read the next book in the series, you'll find that Jack was completely justified in his hypothesis, the next two items were *Mammoth Bone* and *Mouse*.
+**Spolier Alert**: If you read the next few books in the series, you'll find that Jack was completely justified in his hypothesis, the next two items were *Mammoth Bone* and *Mouse*.
 
-If you made it this far, I hope you enjoyed reading the blog as much as I enjoy writing it. For the next post, I plan on moving back into deep learning by showing you how to build a bird sound classifier using deep convolutional neural networks and image recognition.
+If you made it this far I hope you enjoyed reading the blog as much as I enjoy writing it. For the next post, I plan on moving back into deep learning by showing you how to build a bird sound classifier using deep convolutional Neural Networks and image recognition.
 
 
 
