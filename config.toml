@@ -18,7 +18,7 @@ googleAnalytics = "UA-129788260-1"
 [Params]
 #  homeTitle = "Beautiful Hugo Theme" # Set a different text for the header on the home page
   subtitle = "Musings on Deep Learning, Machine Learning, and Raspberry Pi's"
-  logo = "img/LightShowPipeline.jpg" # Expecting square dimensions
+  logo = "img/MuellerFull.jpg" # Expecting square dimensions
   favicon = "img/favicon.ico"
   dateFormat = "January 2, 2006"
   commit = false
