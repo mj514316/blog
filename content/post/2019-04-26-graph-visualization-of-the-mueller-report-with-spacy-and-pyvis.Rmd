@@ -142,7 +142,7 @@ rankings.sort_values('pgRank', ascending = False).head(20).round(4)
 
 ![Graph Elements Sorted by PageRank](/img/muellerGraphAlgorithms.JPG)
 
-While I don't have the space in this blog post to explain these algorithms in detail we can develope get an intuitive understanding for what they are doing. 
+While I don't have the space in this blog post to explain these algorithms in detail we can develop get an intuitive understanding for what they are doing. 
 
 The [PageRank](http://www.cs.princeton.edu/~chazelle/courses/BIB/pagerank.htm) algorithm attempts to identify how important a page is by allowing other pages to 'vote' for it. These votes come in the form of links, so naturally pages with more links are considered more important. 
 In this case, the PageRank does a good job identifying the key concepts (those with the most mentions across articles) and ranking them higher. Because our graph is structured where links always go 'out' from paragraphs (a paragraph mentions a person, a person doesn't mention a paragraph) the page rank algorithm more or less judges on the degree of each node (how many connections it has).
@@ -223,7 +223,7 @@ The items in the subgraph with the most betweenness are Comey himself (remember 
 
 > On January 26, 2017, Department of Justice (DOJ) officials notified the White House that Flynn and the Russian Ambassador had discussed sanctions and that Flynn had been interviewed by the FBT. The next night, the President had a private dinner with FBI Director James Corney in which he **asked for Corney's loyalty**. On February 13, 2017, the President asked Flynn to resign. The following day, the President had a **one-on-one conversation with Corney** in which he said, "I hope you can see your way clear to **letting this go**, to letting Flynn go." 
 
-As you can see our paragraph reccomender managed to grab a paragraph that discusses the **key elements** of the investigation surrounding James Comey and the presidents motivation for removing him from his position as the Director of the FBI.
+As you can see our paragraph recommender managed to grab a paragraph that discusses the **key elements** of the investigation surrounding James Comey and the presidents motivation for removing him from his position as the Director of the FBI.
 
 Looking further down the list, paragraph 517 discusses how James Comey confirmed the existence of the Russia investigation, and paragraph 648 discusses Trump's anger at the way James Comey handled the Clinton email investigation. 
 
