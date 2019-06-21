@@ -14,8 +14,8 @@ tags:
   - tidy
   - family
 type: ''
-subtitle: 'Statistical Evaluation of Having Lots of Boys'
-image: 'kids.jpg'
+subtitle: ''
+image: ''
 math: true
 ---
 Anyone who has multiple boys in a row at some point asks themselves a question: did I just get 'lucky' or are we only able to have boys? As you can see, we certainly asked that question...

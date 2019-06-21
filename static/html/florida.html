@@ -1,0 +1,109 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 500px;
+            height: 500px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"color": "Red", "id": "Oleg Deripaska", "label": "Oleg Deripaska", "shape": "dot", "title": "Oleg Deripaska", "value": 8}, {"color": "grey", "id": "par_837", "label": "par_837", "shape": "dot", "title": "par_837", "value": 25}, {"color": "Red", "id": "GRU", "label": "GRU", "shape": "dot", "title": "GRU", "value": 6}, {"color": "grey", "id": "par_105", "label": "par_105", "shape": "dot", "title": "par_105", "value": 7}, {"color": "Red", "id": "DCCC", "label": "DCCC", "shape": "dot", "title": "DCCC", "value": 17}, {"color": "grey", "id": "par_104", "label": "par_104", "shape": "dot", "title": "par_104", "value": 5}, {"color": "grey", "id": "par_284", "label": "par_284", "shape": "dot", "title": "par_284", "value": 9}, {"color": "Red", "id": "Gates", "label": "Gates", "shape": "dot", "title": "Gates", "value": 21}, {"color": "Red", "id": "Manafort", "label": "Manafort", "shape": "dot", "title": "Manafort", "value": 64}, {"color": "Blue", "id": "Florida", "label": "Florida", "shape": "dot", "title": "Florida", "value": 15}, {"color": "Red", "id": "Paul Manafort\u0027s", "label": "Paul Manafort\u0027s", "shape": "dot", "title": "Paul Manafort\u0027s", "value": 8}, {"color": "Red", "id": "Deripaska", "label": "Deripaska", "shape": "dot", "title": "Deripaska", "value": 13}, {"color": "Red", "id": "Akhmetov", "label": "Akhmetov", "shape": "dot", "title": "Akhmetov", "value": 2}, {"color": "Red", "id": "Serhiy Lyovochkin", "label": "Serhiy Lyovochkin", "shape": "dot", "title": "Serhiy Lyovochkin", "value": 2}, {"color": "Red", "id": "Cohen", "label": "Cohen", "shape": "dot", "title": "Cohen", "value": 89}, {"color": "grey", "id": "par_448", "label": "par_448", "shape": "dot", "title": "par_448", "value": 11}, {"color": "Red", "id": "Ledeen", "label": "Ledeen", "shape": "dot", "title": "Ledeen", "value": 2}, {"color": "grey", "id": "par_147", "label": "par_147", "shape": "dot", "title": "par_147", "value": 12}, {"color": "Blue", "id": "Spain", "label": "Spain", "shape": "dot", "title": "Spain", "value": 2}, {"color": "Blue", "id": "the Dominican Republic", "label": "the Dominican Republic", "shape": "dot", "title": "the Dominican Republic", "value": 2}, {"color": "grey", "id": "par_345", "label": "par_345", "shape": "dot", "title": "par_345", "value": 10}, {"color": "grey", "id": "par_462", "label": "par_462", "shape": "dot", "title": "par_462", "value": 5}, {"color": "Black", "id": "social media", "label": "social media", "shape": "dot", "title": "social media", "value": 31}, {"color": "grey", "id": "par_86", "label": "par_86", "shape": "dot", "title": "par_86", "value": 9}, {"color": "Red", "id": "Reince Priebus", "label": "Reince Priebus", "shape": "dot", "title": "Reince Priebus", "value": 7}, {"color": "Red", "id": "Henry Oknyansky", "label": "Henry Oknyansky", "shape": "dot", "title": "Henry Oknyansky", "value": 3}, {"color": "grey", "id": "par_144", "label": "par_144", "shape": "dot", "title": "par_144", "value": 12}, {"color": "Red", "id": "Guccifer", "label": "Guccifer", "shape": "dot", "title": "Guccifer", "value": 4}, {"color": "Blue", "id": "Pennsylvania", "label": "Pennsylvania", "shape": "dot", "title": "Pennsylvania", "value": 5}, {"color": "Blue", "id": "Russia", "label": "Russia", "shape": "dot", "title": "Russia", "value": 280}, {"color": "Blue", "id": "Moscow", "label": "Moscow", "shape": "dot", "title": "Moscow", "value": 63}, {"color": "Red", "id": "Michael Cohen", "label": "Michael Cohen", "shape": "dot", "title": "Michael Cohen", "value": 48}, {"color": "Red", "id": "Trump", "label": "Trump", "shape": "dot", "title": "Trump", "value": 131}, {"color": "Red", "id": "Hillary Clinton", "label": "Hillary Clinton", "shape": "dot", "title": "Hillary Clinton", "value": 44}, {"color": "Red", "id": "IV", "label": "IV", "shape": "dot", "title": "IV", "value": 6}, {"color": "Red", "id": "Cohen 9/18/18", "label": "Cohen 9/18/18", "shape": "dot", "title": "Cohen 9/18/18", "value": 15}, {"color": "Blue", "id": "New York", "label": "New York", "shape": "dot", "title": "New York", "value": 35}, {"color": "grey", "id": "par_83", "label": "par_83", "shape": "dot", "title": "par_83", "value": 6}, {"color": "grey", "id": "par_84", "label": "par_84", "shape": "dot", "title": "par_84", "value": 4}, {"color": "Red", "id": "Clinton", "label": "Clinton", "shape": "dot", "title": "Clinton", "value": 97}, {"color": "Red", "id": "Henry Greenberg", "label": "Henry Greenberg", "shape": "dot", "title": "Henry Greenberg", "value": 3}, {"color": "Red", "id": "Caputo", "label": "Caputo", "shape": "dot", "title": "Caputo", "value": 2}, {"color": "Red", "id": "Roger Stone", "label": "Roger Stone", "shape": "dot", "title": "Roger Stone", "value": 9}, {"color": "Red", "id": "Stone", "label": "Stone", "shape": "dot", "title": "Stone", "value": 7}, {"color": "Blue", "id": "Oknyansky", "label": "Oknyansky", "shape": "dot", "title": "Oknyansky", "value": 3}, {"color": "Red", "id": "McFarland", "label": "McFarland", "shape": "dot", "title": "McFarland", "value": 26}, {"color": "Red", "id": "Oganov", "label": "Oganov", "shape": "dot", "title": "Oganov", "value": 2}, {"color": "grey", "id": "par_128", "label": "par_128", "shape": "dot", "title": "par_128", "value": 2}, {"color": "grey", "id": "par_445", "label": "par_445", "shape": "dot", "title": "par_445", "value": 3}, {"color": "Red", "id": "UHeer", "label": "UHeer", "shape": "dot", "title": "UHeer", "value": 7}, {"color": "Red", "id": "Smith", "label": "Smith", "shape": "dot", "title": "Smith", "value": 9}, {"color": "Red", "id": "Assan", "label": "Assan", "shape": "dot", "title": "Assan", "value": 2}, {"color": "Red", "id": "Matt Skiber", "label": "Matt Skiber", "shape": "dot", "title": "Matt Skiber", "value": 5}, {"color": "Blue", "id": "the United States", "label": "the United States", "shape": "dot", "title": "the United States", "value": 79}, {"color": "Red", "id": "Page", "label": "Page", "shape": "dot", "title": "Page", "value": 23}, {"color": "Red", "id": "William", "label": "William", "shape": "dot", "title": "William", "value": 2}, {"color": "Red", "id": "Paul Manafort", "label": "Paul Manafort", "shape": "dot", "title": "Paul Manafort", "value": 52}, {"color": "Red", "id": "Flynn", "label": "Flynn", "shape": "dot", "title": "Flynn", "value": 90}, {"color": "Red", "id": "Barbara Ledeen", "label": "Barbara Ledeen", "shape": "dot", "title": "Barbara Ledeen", "value": 3}, {"color": "Red", "id": "Peter Smith", "label": "Peter Smith", "shape": "dot", "title": "Peter Smith", "value": 3}, {"color": "Red", "id": "Werk Predttet", "label": "Werk Predttet", "shape": "dot", "title": "Werk Predttet", "value": 17}, {"color": "Red", "id": "Hillary", "label": "Hillary", "shape": "dot", "title": "Hillary", "value": 17}, {"color": "Red", "id": "Steve Bannon", "label": "Steve Bannon", "shape": "dot", "title": "Steve Bannon", "value": 7}, {"color": "Red", "id": "Mttterittl Proteeted", "label": "Mttterittl Proteeted", "shape": "dot", "title": "Mttterittl Proteeted", "value": 7}, {"color": "Blue", "id": "the United States\u0027s", "label": "the United States\u0027s", "shape": "dot", "title": "the United States\u0027s", "value": 3}, {"color": "Blue", "id": "Miami", "label": "Miami", "shape": "dot", "title": "Miami", "value": 2}, {"color": "Red", "id": "Hillary Clinton\u0027s", "label": "Hillary Clinton\u0027s", "shape": "dot", "title": "Hillary Clinton\u0027s", "value": 5}]);
+        edges = new vis.DataSet([{"from": "Oleg Deripaska", "to": "par_837", "value": 1}, {"from": "GRU", "to": "par_105", "value": 1}, {"from": "DCCC", "to": "par_104", "value": 2}, {"from": "DCCC", "to": "par_105", "value": 2}, {"from": "par_284", "to": "Gates", "value": 4}, {"from": "par_284", "to": "Manafort", "value": 2}, {"from": "par_284", "to": "Florida", "value": 1}, {"from": "par_284", "to": "Paul Manafort\u0027s", "value": 1}, {"from": "par_284", "to": "Deripaska", "value": 1}, {"from": "par_284", "to": "Akhmetov", "value": 1}, {"from": "par_284", "to": "Serhiy Lyovochkin", "value": 1}, {"from": "Cohen", "to": "par_448", "value": 4}, {"from": "Ledeen", "to": "par_147", "value": 1}, {"from": "Spain", "to": "par_837", "value": 1}, {"from": "the Dominican Republic", "to": "par_345", "value": 1}, {"from": "the Dominican Republic", "to": "par_462", "value": 1}, {"from": "social media", "to": "par_86", "value": 1}, {"from": "Reince Priebus", "to": "par_345", "value": 1}, {"from": "Henry Oknyansky", "to": "par_144", "value": 2}, {"from": "par_104", "to": "Guccifer", "value": 2}, {"from": "par_104", "to": "Florida", "value": 1}, {"from": "par_104", "to": "Pennsylvania", "value": 1}, {"from": "par_448", "to": "Russia", "value": 6}, {"from": "par_448", "to": "Moscow", "value": 4}, {"from": "par_448", "to": "Michael Cohen", "value": 1}, {"from": "par_448", "to": "Trump", "value": 1}, {"from": "par_448", "to": "Florida", "value": 6}, {"from": "par_448", "to": "Hillary Clinton", "value": 1}, {"from": "par_448", "to": "IV", "value": 1}, {"from": "par_448", "to": "Cohen 9/18/18", "value": 2}, {"from": "New York", "to": "par_83", "value": 1}, {"from": "New York", "to": "par_84", "value": 1}, {"from": "par_144", "to": "Clinton", "value": 9}, {"from": "par_144", "to": "Russia", "value": 1}, {"from": "par_144", "to": "Henry Greenberg", "value": 2}, {"from": "par_144", "to": "Florida", "value": 3}, {"from": "par_144", "to": "Hillary Clinton", "value": 1}, {"from": "par_144", "to": "Caputo", "value": 4}, {"from": "par_144", "to": "Roger Stone", "value": 1}, {"from": "par_144", "to": "Stone", "value": 4}, {"from": "par_144", "to": "Oknyansky", "value": 4}, {"from": "McFarland", "to": "par_345", "value": 1}, {"from": "McFarland", "to": "par_462", "value": 1}, {"from": "Oganov", "to": "par_837", "value": 1}, {"from": "Florida", "to": "par_83", "value": 2}, {"from": "Florida", "to": "par_84", "value": 1}, {"from": "Florida", "to": "par_86", "value": 1}, {"from": "Florida", "to": "par_105", "value": 2}, {"from": "Florida", "to": "par_128", "value": 2}, {"from": "Florida", "to": "par_147", "value": 1}, {"from": "Florida", "to": "par_345", "value": 1}, {"from": "Florida", "to": "par_445", "value": 2}, {"from": "Florida", "to": "par_462", "value": 1}, {"from": "Florida", "to": "par_837", "value": 1}, {"from": "Roger Stone", "to": "par_837", "value": 1}, {"from": "UHeer", "to": "par_128", "value": 1}, {"from": "Smith", "to": "par_147", "value": 1}, {"from": "Assan", "to": "par_445", "value": 1}, {"from": "par_84", "to": "Matt Skiber", "value": 1}, {"from": "par_84", "to": "Pennsylvania", "value": 1}, {"from": "the United States", "to": "par_86", "value": 1}, {"from": "the United States", "to": "par_147", "value": 1}, {"from": "Page", "to": "par_837", "value": 1}, {"from": "par_837", "to": "Henry Greenberg", "value": 1}, {"from": "par_837", "to": "William", "value": 1}, {"from": "par_837", "to": "Paul Manafort", "value": 1}, {"from": "par_837", "to": "Hillary Clinton", "value": 1}, {"from": "Trump", "to": "par_147", "value": 1}, {"from": "Trump", "to": "par_345", "value": 2}, {"from": "Guccifer", "to": "par_105", "value": 1}, {"from": "par_147", "to": "Clinton", "value": 5}, {"from": "par_147", "to": "Russia", "value": 1}, {"from": "par_147", "to": "Flynn", "value": 4}, {"from": "par_147", "to": "Barbara Ledeen", "value": 1}, {"from": "par_147", "to": "Peter Smith", "value": 1}, {"from": "Russia", "to": "par_462", "value": 1}, {"from": "par_86", "to": "Werk Predttet", "value": 1}, {"from": "par_86", "to": "Clinton", "value": 2}, {"from": "par_86", "to": "Hillary", "value": 1}, {"from": "Steve Bannon", "to": "par_345", "value": 1}, {"from": "par_345", "to": "Mttterittl Proteeted", "value": 1}, {"from": "par_345", "to": "Flynn", "value": 1}, {"from": "par_345", "to": "the United States\u0027s", "value": 1}, {"from": "par_83", "to": "Clinton", "value": 1}, {"from": "par_83", "to": "Pennsylvania", "value": 1}, {"from": "par_83", "to": "Miami", "value": 1}, {"from": "Hillary Clinton\u0027s", "to": "par_105", "value": 1}, {"from": "par_105", "to": "Clinton", "value": 1}, {"from": "par_462", "to": "Flynn", "value": 3}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        // default to using dot shape for nodes
+        options.nodes = {
+            shape: "dot"
+        }
+        
+
+        network = new vis.Network(container, data, options);
+
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

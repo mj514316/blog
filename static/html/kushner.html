@@ -1,0 +1,109 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 500px;
+            height: 500px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"color": "Red", "id": "Putin", "label": "Putin", "shape": "dot", "title": "Putin", "value": 56}, {"color": "grey", "id": "par_177", "label": "par_177", "shape": "dot", "title": "par_177", "value": 10}, {"color": "Red", "id": "Manafo1", "label": "Manafo1", "shape": "dot", "title": "Manafo1", "value": 3}, {"color": "grey", "id": "par_251", "label": "par_251", "shape": "dot", "title": "par_251", "value": 26}, {"color": "Red", "id": "Ma", "label": "Ma", "shape": "dot", "title": "Ma", "value": 20}, {"color": "Red", "id": "Goldstone", "label": "Goldstone", "shape": "dot", "title": "Goldstone", "value": 18}, {"color": "Red", "id": "Manafort", "label": "Manafort", "shape": "dot", "title": "Manafort", "value": 64}, {"color": "Red", "id": "Kushner", "label": "Kushner", "shape": "dot", "title": "Kushner", "value": 48}, {"color": "Blue", "id": "Russia", "label": "Russia", "shape": "dot", "title": "Russia", "value": 280}, {"color": "Red", "id": "\u00b0 Kushner", "label": "\u00b0 Kushner", "shape": "dot", "title": "\u00b0 Kushner", "value": 3}, {"color": "Red", "id": "Rick Gates", "label": "Rick Gates", "shape": "dot", "title": "Rick Gates", "value": 9}, {"color": "Red", "id": "Eric Trump", "label": "Eric Trump", "shape": "dot", "title": "Eric Trump", "value": 3}, {"color": "Red", "id": "Paul Manafort", "label": "Paul Manafort", "shape": "dot", "title": "Paul Manafort", "value": 52}, {"color": "Red", "id": "Hope Hicks", "label": "Hope Hicks", "shape": "dot", "title": "Hope Hicks", "value": 6}, {"color": "Red", "id": "Ivanka Trump", "label": "Ivanka Trump", "shape": "dot", "title": "Ivanka Trump", "value": 4}, {"color": "Red", "id": "Jared Kushner", "label": "Jared Kushner", "shape": "dot", "title": "Jared Kushner", "value": 30}, {"color": "Red", "id": "Hicks", "label": "Hicks", "shape": "dot", "title": "Hicks", "value": 38}, {"color": "Red", "id": "Michael Cohen", "label": "Michael Cohen", "shape": "dot", "title": "Michael Cohen", "value": 48}, {"color": "Red", "id": "Clinton", "label": "Clinton", "shape": "dot", "title": "Clinton", "value": 97}, {"color": "Red", "id": "Cohen", "label": "Cohen", "shape": "dot", "title": "Cohen", "value": 89}, {"color": "Red", "id": "Vargas", "label": "Vargas", "shape": "dot", "title": "Vargas", "value": 6}, {"color": "Red", "id": "Gates", "label": "Gates", "shape": "dot", "title": "Gates", "value": 21}, {"color": "Red", "id": "Aras Agalarov", "label": "Aras Agalarov", "shape": "dot", "title": "Aras Agalarov", "value": 12}, {"color": "Blue", "id": "Azerbaijan", "label": "Azerbaijan", "shape": "dot", "title": "Azerbaijan", "value": 2}, {"color": "Red", "id": "Neil MacFarquhar", "label": "Neil MacFarquhar", "shape": "dot", "title": "Neil MacFarquhar", "value": 2}, {"color": "Red", "id": "Kaveladze", "label": "Kaveladze", "shape": "dot", "title": "Kaveladze", "value": 12}, {"color": "grey", "id": "par_160", "label": "par_160", "shape": "dot", "title": "par_160", "value": 13}, {"color": "Red", "id": "Klokov", "label": "Klokov", "shape": "dot", "title": "Klokov", "value": 4}, {"color": "Red", "id": "Dmitry Klokov", "label": "Dmitry Klokov", "shape": "dot", "title": "Dmitry Klokov", "value": 3}, {"color": "Red", "id": "Werle", "label": "Werle", "shape": "dot", "title": "Werle", "value": 10}, {"color": "grey", "id": "par_629", "label": "par_629", "shape": "dot", "title": "par_629", "value": 13}, {"color": "Blue", "id": "Moscow", "label": "Moscow", "shape": "dot", "title": "Moscow", "value": 63}, {"color": "Red", "id": "Agalarov", "label": "Agalarov", "shape": "dot", "title": "Agalarov", "value": 11}, {"color": "Red", "id": "Emin Agalarov", "label": "Emin Agalarov", "shape": "dot", "title": "Emin Agalarov", "value": 13}, {"color": "Blue", "id": "Crimea", "label": "Crimea", "shape": "dot", "title": "Crimea", "value": 6}, {"color": "Red", "id": "Priebus", "label": "Priebus", "shape": "dot", "title": "Priebus", "value": 37}, {"color": "Red", "id": "Corallo", "label": "Corallo", "shape": "dot", "title": "Corallo", "value": 5}, {"color": "Red", "id": "Hicks 3/13/ l", "label": "Hicks 3/13/ l", "shape": "dot", "title": "Hicks 3/13/ l", "value": 3}, {"color": "Red", "id": "Trump", "label": "Trump", "shape": "dot", "title": "Trump", "value": 131}, {"color": "Red", "id": "Cetttaitt", "label": "Cetttaitt", "shape": "dot", "title": "Cetttaitt", "value": 9}, {"color": "Red", "id": "Vladimir Putin", "label": "Vladimir Putin", "shape": "dot", "title": "Vladimir Putin", "value": 16}]);
+        edges = new vis.DataSet([{"from": "Putin", "to": "par_177", "value": 2}, {"from": "Manafo1", "to": "par_251", "value": 1}, {"from": "par_251", "to": "Ma", "value": 1}, {"from": "par_251", "to": "Goldstone", "value": 1}, {"from": "par_251", "to": "Manafort", "value": 2}, {"from": "par_251", "to": "Kushner", "value": 4}, {"from": "par_251", "to": "Russia", "value": 1}, {"from": "par_251", "to": "\u00b0 Kushner", "value": 1}, {"from": "par_251", "to": "Rick Gates", "value": 1}, {"from": "par_251", "to": "Eric Trump", "value": 1}, {"from": "par_251", "to": "Paul Manafort", "value": 1}, {"from": "par_251", "to": "Hope Hicks", "value": 1}, {"from": "par_251", "to": "Ivanka Trump", "value": 1}, {"from": "par_251", "to": "Jared Kushner", "value": 1}, {"from": "par_251", "to": "Hicks", "value": 1}, {"from": "par_251", "to": "Michael Cohen", "value": 1}, {"from": "par_251", "to": "Clinton", "value": 1}, {"from": "par_251", "to": "Cohen", "value": 3}, {"from": "par_251", "to": "Vargas", "value": 2}, {"from": "par_251", "to": "Gates", "value": 1}, {"from": "par_251", "to": "Aras Agalarov", "value": 1}, {"from": "par_251", "to": "Azerbaijan", "value": 1}, {"from": "par_251", "to": "Neil MacFarquhar", "value": 1}, {"from": "Kaveladze", "to": "par_160", "value": 3}, {"from": "Cohen", "to": "par_177", "value": 15}, {"from": "Klokov", "to": "par_177", "value": 16}, {"from": "Dmitry Klokov", "to": "par_177", "value": 1}, {"from": "Werle", "to": "par_629", "value": 1}, {"from": "par_160", "to": "Moscow", "value": 2}, {"from": "par_160", "to": "Agalarov", "value": 1}, {"from": "par_160", "to": "Ivanka Trump", "value": 1}, {"from": "par_160", "to": "Emin Agalarov", "value": 1}, {"from": "Jared Kushner", "to": "par_629", "value": 1}, {"from": "Crimea", "to": "par_177", "value": 1}, {"from": "par_629", "to": "Priebus", "value": 1}, {"from": "par_629", "to": "Hope Hicks", "value": 1}, {"from": "par_629", "to": "Ivanka Trump", "value": 1}, {"from": "par_629", "to": "Hicks", "value": 18}, {"from": "par_629", "to": "Kushner", "value": 7}, {"from": "par_629", "to": "Manafort", "value": 1}, {"from": "par_629", "to": "Corallo", "value": 1}, {"from": "par_629", "to": "Hicks 3/13/ l", "value": 1}, {"from": "Trump", "to": "par_177", "value": 2}, {"from": "Cetttaitt", "to": "par_177", "value": 1}, {"from": "Russia", "to": "par_177", "value": 6}, {"from": "Ivanka Trump", "to": "par_177", "value": 1}, {"from": "par_177", "to": "Vladimir Putin", "value": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        // default to using dot shape for nodes
+        options.nodes = {
+            shape: "dot"
+        }
+        
+
+        network = new vis.Network(container, data, options);
+
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

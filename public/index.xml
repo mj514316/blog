@@ -7,10 +7,24 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>mj514316@domain.com (Michael C Johnson)</managingEditor>
     <webMaster>mj514316@domain.com (Michael C Johnson)</webMaster>
-    <lastBuildDate>Fri, 25 Jan 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 19 Jun 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Graph Visualization of The Mueller Report With SpaCy and PyVis</title>
+      <link>/post/graph-visualization-of-the-mueller-report-with-spacy-and-pyvis/</link>
+      <pubDate>Wed, 19 Jun 2019 00:00:00 +0000</pubDate>
+      <author>mj514316@domain.com (Michael C Johnson)</author>
+      <guid>/post/graph-visualization-of-the-mueller-report-with-spacy-and-pyvis/</guid>
+      <description>One of the most interesting talks I heard at Strata in San Francisco this year was “Towards deep and representation learning for talent search at LinkedIn”. In the talk, Gungor explained how he took advantage of LinkedIn’s economic graph to build a hyper-personalized search engine. Ever since then I’ve had graphs firmly planted in my mind.
+Not these graphs:
+Graph
+More like these:
+Network
+Specifically, I’ve been trying to understand how graph network techniques can be applied in various domains, including natural language processing.</description>
+    </item>
     
     <item>
       <title>Monte Carlo Simulation For Childrens Stories</title>

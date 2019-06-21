@@ -1,0 +1,198 @@
+---
+title: 'Graph Visualization of The Mueller Report With SpaCy and PyVis'
+author: Michael Johnson
+date: '2019-06-19'
+slug: graph-visualization-of-the-mueller-report-with-spacy-and-pyvis
+categories:
+  - mueller
+tags:
+  - nlp
+  - spacy
+  - graph
+  - trump
+  - mueller
+  - python
+  - visualization
+  - pyvis
+  - networkx
+type: ''
+subtitle: 'Building a contextual paragraph recomendation engine'
+image: ''
+math: true
+---
+
+
+
+<p>One of the most interesting talks I heard at Strata in San Francisco this year was “<a href="https://conferences.oreilly.com/strata/strata-ca/public/schedule/detail/74408">Towards deep and representation learning for talent search at LinkedIn</a>”. In the talk, Gungor explained how he took advantage of LinkedIn’s economic graph to build a hyper-personalized search engine. Ever since then I’ve had graphs firmly planted in my mind.</p>
+<p>Not these graphs:</p>
+<div class="figure">
+<img src="https://media.giphy.com/media/xT5LMDYj4kvKNlGDHq/giphy.gif" alt="Graph" />
+<p class="caption">Graph</p>
+</div>
+<p>More like these:</p>
+<div class="figure">
+<img src="https://media.giphy.com/media/NsBknNwmmWE8WU1q2U/giphy.gif" alt="Network" />
+<p class="caption">Network</p>
+</div>
+<p>Specifically, I’ve been trying to understand how graph network techniques can be applied in various domains, including natural language processing. Graphs are interesting representations of the world because they capture explicit relationships between items/concepts, allowing an object to be represented in context to all other objects in the graph.</p>
+<p>In the LinkedIn example, there are nodes that represent people, skills, location, jobs industries, friends, interactions, and so on. An individual skill or person is then represented with much more context than can be gleaned by just looking at their name.</p>
+<p>For example, people who apply machine learning to the telecom industry are similar in some way to people who do machine learning in manufacturing, but the combination of skill + industry + person gives a much better context than just ‘machine learning’ itself.</p>
+<p>When the Mueller Report was released and I found that I was way to lazy to read it, I figured I should see if building a graph representation of the document would expedite my understanding of the content, and so here we are.</p>
+<div id="building-a-graph-representation-of-the-mueller-report" class="section level1">
+<h1>Building a Graph Representation of The Mueller Report</h1>
+<p>I wanted to build a graph that would allow me to understand the relationship between different individuals/concepts and also allow me to navigate through the document, following the thread of the story in some intuitive way.</p>
+<p>To do this, I decided on the following representation:</p>
+<iframe src="/html/setupGraph.html" width="425" height="425&quot;">
+</iframe>
+<p>Here, each paragraph is represented by a node, and the people, places and things are connected to that paragraph with an edge. While I could have chosen to represent each sentence, I chose paragraph because I wanted a more global representation of the relationships between people.</p>
+<p>In this case, people are associated with other people, locations, or concepts <em>if they are mentioned in the same paragraph</em>.</p>
+<div id="prepare-the-text-for-graph-euphoria" class="section level2">
+<h2>Prepare The Text For Graph Euphoria</h2>
+<p>In order to construct the graph, we’ll start with extracting the text from the document. Unfortunately the official report was released as a pdf that is simply a collection of images. This introduces some challenges we’ll address later, but first Lets start with stripping the text out of the pdf and splitting on endlines to get something like a bunch of paragraphs:</p>
+<pre class="python"><code>mueller1 = open(&#39;Mueller-Report.pdf&#39;, &#39;rb&#39;) 
+mueller1Reader = PyPDF2.PdfFileReader(mueller1)
+
+muellerPages = []
+for pageNum in range(mueller1Reader.numPages):
+    muellerPages.append([par for par in mueller1Reader.getPage(pageNum).extractText().split(&#39;\n&#39;)])
+mueller1.close()
+
+muellerParagraphs = sum(muellerPages,[]) #flatten the list of lists
+len(muellerParagraphs)
+
+##897</code></pre>
+<p>muellerParagraphs is now a list of all of the ‘paragraphs’ in the Mueller report. Lets take a look at a random paragraph:</p>
+<blockquote>
+<p>to release documents directly to reporters and other interested individuals. Specifically, on June 27, 2016, Guccifer 2.0 sent an email to the news outlet The Smoking Gun offering to provide “exclusive access to some leaked emails linked [to] Hillary Clinton’s staff.”148 The GRU later sent the reporter a password and link to a locked portion of the dcleaks.com website that contained an archive of emails stolen by Unit 26165 from a Clinton Campaign volunteer in March 2016.149 That the Guccifer 2.0…</p>
+</blockquote>
+<p>This paragraph reveals a few things. First, the pdf to text converter works well but not perfectly. Superscripts are captured as normal text with no spaces (the 148 after the &quot; and the 149 after 2016), and there are some pervasive misspellings captured by the tool (Comey is captured as Corney, some words are truncated). You’ll also notice that the paragraph is packed with references to individuals, dates, companies, and locations.</p>
+<p>Let’s take a look at how well spaCy does extracting these terms. We’ll first load it and build a ‘THEME’ finder:</p>
+<pre class="python"><code>nlp = spacy.load(&#39;C:/Users/mj514/Anaconda3/lib/site-packages/en_core_web_lg/en_core_web_lg-2.0.0&#39;)
+terms = (u&quot;collude&quot;, u&quot;collusion&quot;, 
+         u&quot;conspiracy&quot;, u&quot;conspire&quot;,u&quot;hack&quot;, u&quot;hacking&quot;, u&quot;cyber intrusions&quot;, 
+         u&quot;russian hacking&quot;, u&quot;hackers&quot;,u&quot;social media&quot;,u&quot;computer intrusions&quot;,
+         u&quot;cybersecurity&quot;,u&quot;emails&quot;,&quot;email&quot;)
+concept_matcher = EntityMatcher(nlp, terms, &quot;THEME&quot;)
+
+nlp.add_pipe(concept_matcher, after=&quot;ner&quot;)</code></pre>
+<p>The theme entity matcher simply records any time we see the provided words and references them as a theme. Applying this to our example paragraph and visualizing with the displacy tool shows what we can extract:</p>
+<pre class="python"><code>from spacy import displacy
+
+aDoc = nlpParagraphs[105]
+
+displacy.serve(aDoc, style=&quot;ent&quot;)</code></pre>
+<p><img src="/img/displacyExample.PNG" alt="Displacy" /> spaCy does an excellent job picking out the basic features of the text, even recognizing the use of Guccifer 2.0 as a person, but it isn’t perfect. <em>staff.148</em> is picked up as a work of art. while March 2016 is identified correctly as a date, the entity text extracted includes the period and a reference to the footnote (2016<strong>.149</strong>). Also, despite being an organization, <em>Unit 26165</em> isn’t picked up as an entity. Finally, GRU is sometimes referenced to be a person, other times referenced to be an organization.</p>
+<p>We’ll focus on GPE, person, and theme, iterating through our paragraphs and creating a node for each paragraph, then attaching the GPE’s, Persons, and Theme’s mentioned in that paragraph with an edge. This is accomplished with the makeGraphFromSpacy function:</p>
+<pre class="python"><code>fullMuellerG = makeGraphFromSpacy(nlpParagraphs)
+pyvisG = Network(&quot;1000px&quot;, &quot;1000px&quot;)
+from_nx(pyvisG,fullMuellerG)
+pyvisG.show_buttons(filter_=[&#39;physics&#39;])
+pyvisG.show(&#39;fullMueller.html&#39;)</code></pre>
+<p>And now we have it, the full graph: <img src="/img/MuellerFull.jpg" alt="Full Mueller Graph" /></p>
+<p>If you are patient, you can check out the full interactive graph <a href="/html/fullMuellerGraph.html">here</a> where you can zoom, drag and change the visualization settings (takes about 1 minute to load). If you’re interested in the details behind the makeGraphFromSpacy function checkout my <a href="https://github.com/mj514316/meuller-report">github</a>.</p>
+</div>
+</div>
+<div id="analyzing-the-graph" class="section level1">
+<h1>Analyzing The Graph</h1>
+<p>At first glance, the graph has captured quite a bite of intuitive structure about the document. The people and places that are at the center of the investigation (Trump, Russia, Clinton) are all tightly grouped at the center of the document while Comey, McGahn and Cohen show up near the periphery. Smaller players in the story are hovering around the very outside of the graph making the outside a fun place to find somewhat random subjects.</p>
+<p>Paragraph 69 is an example listing fake social media accounts which purported to have connection to real organizations (like the Tennessee Republican Party):</p>
+<div class="figure">
+<img src="/img/par_69.JPG" alt="Paragraph 69" />
+<p class="caption">Paragraph 69</p>
+</div>
+<blockquote>
+<p>For example, one IRA-controlled Twitter account, <span class="citation">@TEN_</span> GOP, purported to be connected to the <strong>Tennessee</strong> Republican Party.46 More commonly, the IRA created accounts in the names of fictitious U.S. organizations and grassroots groups and used these accounts to pose as immigration groups, Tea Party activists, <strong>Black Lives</strong> Matter protestors, and other U.S. social and political activists…</p>
+</blockquote>
+<div id="graph-algorithms" class="section level2">
+<h2>Graph Algorithms</h2>
+<p>One of the most compelling reasons to structure your problem as a graph network problem is the well researched and robust set of graph algorithms available to leverage for exploration and feature construction.</p>
+<p>For a clear use case of this approach, take a look at <a href="https://towardsdatascience.com/link-prediction-with-neo4j-part-2-predicting-co-authors-using-scikit-learn-78b42356b44c">this post</a> where the authors demonstrate a method for predicting future co-authors by using only features generated from a graph. In this case the graph doesn’t capture the area of expertise, key words or terms used in papers, or which journals they are in. Instead, they build an accurate predictor of next coauthor simply by extracting features from a graph representing historical coauthorship.</p>
+<p>Lets apply a few algorithms to our Mueller report graph and see what intuition we can gain from it:</p>
+<pre class="python"><code>pgRank = networkx.algorithms.pagerank(fullMuellerG)
+betweenness = networkx.algorithms.betweenness_centrality(fullMuellerG)
+closeness = networkx.algorithms.closeness_centrality(fullMuellerG)
+
+rankings = pd.concat([pd.DataFrame([pgRank]).T,pd.DataFrame([betweenness]).T, pd.DataFrame([closeness]).T],axis = 1)
+rankings.columns = [&#39;pgRank&#39;,&#39;betweenness&#39;,&#39;closeness&#39;]
+rankings.sort_values(&#39;pgRank&#39;, ascending = False).head(20).round(4)</code></pre>
+<div class="figure">
+<img src="/img/muellerGraphAlgorithms.JPG" alt="Graph Elements Sorted by PageRank" />
+<p class="caption">Graph Elements Sorted by PageRank</p>
+</div>
+<p>While I don’t have the space in this blog post to explain these algorithms in detail we can develope get an intuitive understanding for what they are doing.</p>
+<p>The <a href="http://www.cs.princeton.edu/~chazelle/courses/BIB/pagerank.htm">PageRank</a> algorithm attempts to identify how important a page is by allowing other pages to ‘vote’ for it. These votes come in the form of links, so naturally pages with more links are considered more important. In this case, the PageRank does a good job identifying the key concepts (those with the most mentions across articles) and ranking them higher. Because our graph is structured where links always go ‘out’ from paragraphs (a paragraph mentions a person, a person doesn’t mention a paragraph) the page rank algorithm more or less judges on the degree of each node (how many connections it has).</p>
+<p>The closeness centrality algorithm, which attempts to identify nodes in the network that control and acquire most of information flow throughout the network, tells a very different story: <img src="/img/closeness.JPG" alt="Sorted by closeness Centrality" /></p>
+<p>In this case Trump and Russia (The two concepts that connect nearly the whole document) are pinned to the top, and a set of key paragraphs follow. Paragraph 38 is titled “The Special Counsel’s Charging Decisions” which is likely the most important section in the document for understanding the context and the final outcome. Paragraph 394 contains some of the testimony from both Michael Cohen and Michael Flynn, and paragraph 251 focuses in on the discussion surrounding the meeting at Trump Tower.</p>
+</div>
+<div id="graph-traversal" class="section level2">
+<h2>Graph Traversal</h2>
+<p>While these algorithms can give a high level view of the important themes/concepts in the document, lets zoom in on one individual and see what their second order connections look like (It’s interactive, zoom, grab, explore away):</p>
+<pre class="python"><code>parExample = getSecondOrderSubgraph(G,&#39;Ivanka Trump&#39;)
+ivankaViz = Network(&quot;500px&quot;, &quot;500px&quot;)
+from_nx(ivankaViz,parExample)
+ivankaViz.show(&#39;Ivanka.html&#39;)</code></pre>
+<iframe src="/html/ivankaViz.html" width="500" height="500&quot;">
+</iframe>
+<p>This view shows all of the paragraphs Ivanka Trump’s mentioned in (only 3) and all of the people/places and things that are mentioned alongside those paragraphs. From here you can see that two of the paragraphs mentioned Russia, all 3 deal with emails, and several mention <a href="https://en.wikipedia.org/wiki/Hope_Hicks">Hope Hicks</a>.</p>
+<p>Doing something similar with Kellyanne Conway shows that she is only mentioned in 2 paragraphs, both of which mention Steve Bannon:</p>
+<iframe src="/html/ConwayViz.html" width="500" height="500&quot;">
+</iframe>
+<p>While this is an interesting way to view and navigate the document, it tends to produce some overwhelming visuals viewing very well connected nodes Here is the 2nd order graph for James Comey in case you don’t believe me: <img src="/img/comeySubgraph.JPG" alt="Comey Subgraph" /></p>
+</div>
+</div>
+<div id="building-a-paragraph-reccomender-engine" class="section level1">
+<h1>Building a Paragraph Reccomender Engine</h1>
+<p>Lets combine the ability to identify relevant/important articles using centrality algorithms with our graph traversal system to produce a recommend engine for paragraphs you might want to read concerning a specific topic.</p>
+<p>First, we build a paragraphDataframe that will be helpful in displaying the results.</p>
+<pre class="python"><code>paragraphDF = pd.DataFrame({&#39;text&#39;:muellerParagraphs,&#39;paragraph&#39;:[f&#39;par_{num}&#39; for num in range(len(muellerParagraphs))]})
+paragraphDF[&#39;paragraph&#39;] = paragraphDF.paragraph.astype(&#39;str&#39;) # Because pandas is stupid</code></pre>
+<p>for one reason or another Pandas makes the decision to encode our list of strings into a generic ‘object’, which proves difficult when joining with the following step, so we’ll change the metadata to string.</p>
+<p>Then we can define our <em>whatToRead</em> function which takes our search concept and our full graph, finds the n = 2 subgraph of connections, determines the closeness centrality, and joins with the paragraph dataframe to be able to display the results:</p>
+<pre class="python"><code>def whatToRead(concept, fullGraph, topn = 10):
+    subGraph = getSecondOrderSubgraph(fullGraph,concept)
+    betweenness = networkx.algorithms.closeness_centrality(subGraph)
+    readDF = pd.DataFrame([betweenness]).T.sort_values(0, ascending=False).head(topn)
+    readDF.reset_index(inplace=True)
+    readDF.columns = [&#39;paragraph&#39;,&#39;score&#39;]
+    print(readDF)
+
+    matchingParagraphs = readDF.merge(paragraphDF,on = &#39;paragraph&#39;, how = &#39;inner&#39;)
+    return matchingParagraphs</code></pre>
+<p>Lets try it out on James Comey and see what comes out:</p>
+<pre class="python"><code>toRead = whatToRead(&#39;Corney&#39;,fullMuellerG)
+
+## Nodes: 418
+## Edges: 817
+## Self Loops: 0
+##      index         0
+## 0  Corney   0.596572
+## 1  Russia   0.137260
+## 2  McGahn   0.071890
+## 3  par_461  0.063138
+## 4  par_517  0.059846
+## 5  par_648  0.050754
+## 6  Flynn    0.044999
+## 7  par_650  0.044556
+## 8  par_521  0.040857
+## 9  par_464  0.039705</code></pre>
+<p>The items in the subgraph with the most betweenness are Comey himself (remember the text parser misspells his name…), Russia, and McGahn who served as White House Council through most of the investigation. Paragraph 461 is an interesting one, here is an excerpt:</p>
+<blockquote>
+<p>On January 26, 2017, Department of Justice (DOJ) officials notified the White House that Flynn and the Russian Ambassador had discussed sanctions and that Flynn had been interviewed by the FBT. The next night, the President had a private dinner with FBI Director James Corney in which he <strong>asked for Corney’s loyalty</strong>. On February 13, 2017, the President asked Flynn to resign. The following day, the President had a <strong>one-on-one conversation with Corney</strong> in which he said, “I hope you can see your way clear to <strong>letting this go</strong>, to letting Flynn go.”</p>
+</blockquote>
+<p>As you can see our paragraph reccomender managed to grab a paragraph that discusses the <strong>key elements</strong> of the investigation surrounding James Comey and the presidents motivation for removing him from his position as the Director of the FBI.</p>
+<p>Looking further down the list, paragraph 517 discusses how James Comey confirmed the existence of the Russia investigation, and paragraph 648 discusses Trump’s anger at the way James Comey handled the Clinton email investigation.</p>
+<p>While it’s difficult to show empirically that these are the most important paragraphs to read about the part James Comey played in the investigation, it’s clear the algorithm has picked out paragraphs that highlight some of the key events surrounding the involvement of Comey in the whole plot line.</p>
+<div id="what-sucks-and-whats-next" class="section level2">
+<h2>What Sucks and What’s Next</h2>
+<p>While there is certainly some promise in applying graph techniques and algorithms to articles like this one, this analysis isn’t without it’s drawbacks and area’s of improvements.</p>
+<p>There are several things that would make this analysis quite a bit cleaner:</p>
+<ol style="list-style-type: decimal">
+<li>Correcting up the parsing errors.</li>
+<li>Deduplicating the names of entities (Donald Trump = Donald J Trump = Trump)</li>
+<li>Building a custom NER model for the special entities in the text (Democratic National Convention, hacking groups, concepts)</li>
+</ol>
+<p>The same strategy applied for the paragraphs of this single document could be used to explore an entire corpus of documents. For example, leveraging the references in academic papers as well as the language used in the abstract could be used to find the best papers to read on a given topic.</p>
+<p>Finally, a key element of the advantage of a graph network is to build distributed representations of the nodes of the graph that are able to capture context and use it for clustering and machine learning. I’ve got a follow up blog post that will do just that, using only 14 lines of python code. If you’re interested in a sneak peek, feel free to check out my github linked below.</p>
+<p>As always, if you have any comments, ideas for improvement, or things you’d like to see me write a blog about, leave a comment below!</p>
+</div>
+</div>

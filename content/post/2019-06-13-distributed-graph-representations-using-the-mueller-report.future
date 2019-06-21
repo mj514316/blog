@@ -1,0 +1,110 @@
+---
+title: Distributed Graph Representations Using the Mueller Report
+author: Michael Johnson
+date: '2019-06-13'
+slug: distributed-graph-representations-using-the-mueller-report
+tags:
+  - nlp
+  - spacy
+  - graph
+  - trump
+  - mueller
+  - python
+  - visualization
+  - pyvis
+  - networkx
+type: ''
+subtitle: ''
+image: ''
+---
+
+
+
+One thing that would be useful when navigating a document (or set of documents) like this is the ability to find things that are 'like' other things. For example, if you are trying to follow the thread of a story through the document, you might want to find all the paragraphs that are about similar things to the paragraph you are interested. 
+
+Additionally, you might want to understand relationships and similarities between the people, places, and organizations that are mentioned in the graph. You could ask the question, which locations is this individual most associated with?
+
+One way to accomplish that would be to build a vector representation of the items in the graph. Vectors are convienient because we have nice ways of measuring similarity and dissimilarity, and so we need a way to generate vectors from the nodes in a graph that will caputure some measure of the similarities and differences between the entities.
+
+The [Word2Vec](https://arxiv.org/abs/1301.3781) fits the bill perfectly. Origonally designed for building vector representations of words, the algorithm operates under the principal that a word should be defined by it's context. It accomplishes this by scanning over a span of words and building a model that predicts a given words from the words that surround it.
+
+This is precisely the sort of thing we need in the graph context as well, but graph doesn't quite lend itself to sequences in the same way natural text does.
+
+## Graph Sequences: The Random Walk
+We need to find a way to generate sequences in the graph that captures the local and global context of the nodes in the graph. Building a random walk is a simple way to accomplish this and by controlling certain parameters (walk length, probability around each path, starting points) we can intuitively capture different aspects of the graph. 
+
+The idea behind a random walk is simple: start in a random/psuedorandom node on the graph, pick a an edge from that node to walk along, and walk. Here is the code needed to realize this:
+
+```{python, eval = FALSE}
+nxG = fullMuellerG
+
+startingNodes = nxG.nodes()
+numWalks = 100000
+
+walkLengths = np.random.normal(10, 3, numWalks).astype(int)
+walkLengths[walkLengths < 0] = 3 # has to do three steps at least
+
+walks = []
+for walkLen in walkLengths:
+    start = random.choice(list(startingNodes))# Start at a random node
+    if nxG.degree(start) > 1: #Check if the starting node has neighbors
+        walk = [start] #Start the walk
+        for step in range(walkLen):
+            paths = [n for n in nxG.neighbors(walk[-1])] #Get a list of edges to walk along
+            walk.append(random.choice(paths)) #pick one and walk walk that way
+        walks.append(walk)
+```
+Lets take a look at one of these walks to see what happened:
+```{python, eval = FALSE}
+walks[3]
+## ['Washington',
+##  'par_689',
+##  'Washington',
+##  'par_213',
+##  'Papadopoulos',
+##  'par_25',
+##  'Papadopoulos',
+##  'par_194',
+##  'Jeff',
+##  'par_264',
+##  'Laura DeMarco']
+```
+This walk started on the washington node, visited a paragraph, came back, and wandered off towards Papadopoulos, finally landing at Laura Demarc0. Visualizing shows how the sequence contains propogates through the graph:
+
+<iframe src="/html/randomVis.html" width=500 height=500"></iframe>
+
+In this case we do 100,000 random walks through the graph (roughly 20 per node) to generate sequences with average length = 10. setting this length to something smaller would allow for a more local representation, and setting it larger would allow for a more global representation.
+
+Also note that our walks object is a list of walk sequences, which is precisely the input needed to train our word2vec model:
+
+```{python, eval = FALSE}
+from gensim.models import Word2Vec
+w2vModel = Word2Vec(walks, size=128, window=10, min_count=1, workers=16)
+```
+This represents each of the nodes in our graph with an n demensial vector, where we have chosen n to be 129. The window size here can be used to control how 'global' our representation is. Increasing our window increases the size of the sequence considered to generate the context, allowing the representation to consider more distant connections in the graph.
+
+What can we do with this representation? First, we can use it to find concepts and people that are similar to eachother. To illustrate this, lets start with paragraph 459, which is excerpted below:
+
+> Throughout the day, members of the Transition Team continued to talk with foreign leaders about the resolution, with Flynn continuing to lead the outreach with the Russian government through Kislyak.1219 When Flynn again spoke with Kislyak, Kislyak informed Flynn that if the resolution came to a vote, Russia would not vote against it. 1220 The resolution later passed 14-0, with the United States
+
+Getting the similarity between the vector for par_459 and the rest is straightforward:
+
+```{python, eval = FALSE}
+w2vModel.wv.most_similar('par_459')
+## [('Michael Flynn Overview', 0.8426560759544373),
+##  ('Michael Flynn', 0.6716177463531494),
+##  ('Steve Bannon', 0.6249542236328125),
+##  ('par_343', 0.5918193459510803),
+##  ('par_474', 0.5842841267585754),
+##  ('Flynn', 0.5826122760772705),
+##  ('par_865', 0.5723687410354614),
+##  ('par_393', 0.5675152540206909),
+##  ('par_415', 0.5670546293258667),
+##  ('par_890', 0.5580882430076599)]
+```
+The first items on the list are about Michael Flynn and here we recongize our **first peice of magic**: while paragraph 459 is certainly *about* Michael Flynn, it never actually says the words 'Michael Flynn'. 
+
+The paragraph only refers to him by his last name (notice 'Flynn' is the 6th item down on the list). That means the word2vec algorithm has successfully generalized the concept of Michael Flynn without rigidly assigning a unique value.
+![Magic](https://media.giphy.com/media/12NUbkX6p4xOO4/giphy.gif)
+
+We can thus use our vector representation

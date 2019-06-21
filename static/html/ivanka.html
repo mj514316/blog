@@ -1,0 +1,205 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 500px;
+            height: 500px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+        #loadingBar {
+            position:absolute;
+            top:0px;
+            left:0px;
+            width: 500px;
+            height: 500px;
+            background-color:rgba(200,200,200,0.8);
+            -webkit-transition: all 0.5s ease;
+            -moz-transition: all 0.5s ease;
+            -ms-transition: all 0.5s ease;
+            -o-transition: all 0.5s ease;
+            transition: all 0.5s ease;
+            opacity:1;
+        }
+
+        #bar {
+            position:absolute;
+            top:0px;
+            left:0px;
+            width:20px;
+            height:20px;
+            margin:auto auto auto auto;
+            border-radius:11px;
+            border:2px solid rgba(30,30,30,0.05);
+            background: rgb(0, 173, 246); /* Old browsers */
+            box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
+        }
+
+        #border {
+            position:absolute;
+            top:10px;
+            left:10px;
+            width:500px;
+            height:23px;
+            margin:auto auto auto auto;
+            box-shadow: 0px 0px 4px rgba(0,0,0,0.2);
+            border-radius:10px;
+        }
+
+        #text {
+            position:absolute;
+            top:8px;
+            left:530px;
+            width:30px;
+            height:50px;
+            margin:auto auto auto auto;
+            font-size:22px;
+            color: #000000;
+        }
+
+        div.outerBorder {
+            position:relative;
+            top:400px;
+            width:600px;
+            height:44px;
+            margin:auto auto auto auto;
+            border:8px solid rgba(0,0,0,0.1);
+            background: rgb(252,252,252); /* Old browsers */
+            background: -moz-linear-gradient(top,  rgba(252,252,252,1) 0%, rgba(237,237,237,1) 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,252,252,1)), color-stop(100%,rgba(237,237,237,1))); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* IE10+ */
+            background: linear-gradient(to bottom,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+            border-radius:72px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+        }
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+<div id="loadingBar">
+    <div class="outerBorder">
+        <div id="text">0%</div>
+        <div id="border">
+            <div id="bar"></div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"color": "Blue", "id": "Germany", "label": "Germany", "shape": "dot", "title": "Germany", "value": 3}, {"color": "grey", "id": "par_630", "label": "par_630", "shape": "dot", "title": "par_630", "value": 16}, {"color": "Red", "id": "Michael", "label": "Michael", "shape": "dot", "title": "Michael", "value": 7}, {"color": "grey", "id": "par_174", "label": "par_174", "shape": "dot", "title": "par_174", "value": 26}, {"color": "Red", "id": "Werk Predttet", "label": "Werk Predttet", "shape": "dot", "title": "Werk Predttet", "value": 17}, {"color": "Green", "id": "Fed", "label": "Fed", "shape": "dot", "title": "Fed", "value": 102}, {"color": "Red", "id": "Hicks", "label": "Hicks", "shape": "dot", "title": "Hicks", "value": 38}, {"color": "Red", "id": "Kushner", "label": "Kushner", "shape": "dot", "title": "Kushner", "value": 48}, {"color": "Green", "id": "Ivanka Trump", "label": "Ivanka Trump", "shape": "dot", "title": "Ivanka Trump", "value": 10}, {"color": "Red", "id": "\u00b0 Kushner", "label": "\u00b0 Kushner", "shape": "dot", "title": "\u00b0 Kushner", "value": 3}, {"color": "Red", "id": "Raffel", "label": "Raffel", "shape": "dot", "title": "Raffel", "value": 3}, {"color": "Green", "id": "the New York Times", "label": "the New York Times", "shape": "dot", "title": "the New York Times", "value": 17}, {"color": "Green", "id": "Raffel 2/8/18 302", "label": "Raffel 2/8/18 302", "shape": "dot", "title": "Raffel 2/8/18 302", "value": 4}, {"color": "Green", "id": "Raffel 2/8/18", "label": "Raffel 2/8/18", "shape": "dot", "title": "Raffel 2/8/18", "value": 2}, {"color": "Green", "id": "Hicks 3/", "label": "Hicks 3/", "shape": "dot", "title": "Hicks 3/", "value": 2}, {"color": "Red", "id": "Cohen", "label": "Cohen", "shape": "dot", "title": "Cohen", "value": 89}, {"color": "grey", "id": "par_161", "label": "par_161", "shape": "dot", "title": "par_161", "value": 19}, {"color": "grey", "id": "par_177", "label": "par_177", "shape": "dot", "title": "par_177", "value": 18}, {"color": "grey", "id": "par_185", "label": "par_185", "shape": "dot", "title": "par_185", "value": 21}, {"color": "grey", "id": "par_251", "label": "par_251", "shape": "dot", "title": "par_251", "value": 39}, {"color": "Blue", "id": "the Russian Federation", "label": "the Russian Federation", "shape": "dot", "title": "the Russian Federation", "value": 7}, {"color": "grey", "id": "par_828", "label": "par_828", "shape": "dot", "title": "par_828", "value": 21}, {"color": "Green", "id": "the Crocus Group", "label": "the Crocus Group", "shape": "dot", "title": "the Crocus Group", "value": 6}, {"color": "grey", "id": "par_160", "label": "par_160", "shape": "dot", "title": "par_160", "value": 29}, {"color": "Green", "id": "Trump Tower Moscow", "label": "Trump Tower Moscow", "shape": "dot", "title": "Trump Tower Moscow", "value": 39}, {"color": "Green", "id": "Trump Organization", "label": "Trump Organization", "shape": "dot", "title": "Trump Organization", "value": 19}, {"color": "Blue", "id": "Moscow", "label": "Moscow", "shape": "dot", "title": "Moscow", "value": 63}, {"color": "Green", "id": "the Trump Organization", "label": "the Trump Organization", "shape": "dot", "title": "the Trump Organization", "value": 50}, {"color": "Red", "id": "Agalarov", "label": "Agalarov", "shape": "dot", "title": "Agalarov", "value": 11}, {"color": "Red", "id": "Emin Agalarov", "label": "Emin Agalarov", "shape": "dot", "title": "Emin Agalarov", "value": 13}, {"color": "Green", "id": "Crocus Group", "label": "Crocus Group", "shape": "dot", "title": "Crocus Group", "value": 6}, {"color": "Green", "id": "OSC", "label": "OSC", "shape": "dot", "title": "OSC", "value": 3}, {"color": "Red", "id": "Kaveladze", "label": "Kaveladze", "shape": "dot", "title": "Kaveladze", "value": 12}, {"color": "Green", "id": "OSC-KA", "label": "OSC-KA", "shape": "dot", "title": "OSC-KA", "value": 6}, {"color": "Blue", "id": "Crimea", "label": "Crimea", "shape": "dot", "title": "Crimea", "value": 6}, {"color": "Green", "id": "the Russian Direct Investment Fund", "label": "the Russian Direct Investment Fund", "shape": "dot", "title": "the Russian Direct Investment Fund", "value": 2}, {"color": "Red", "id": "Corey Lewandowski", "label": "Corey Lewandowski", "shape": "dot", "title": "Corey Lewandowski", "value": 9}, {"color": "Green", "id": "Sater \u0026 Cohen", "label": "Sater \u0026 Cohen", "shape": "dot", "title": "Sater \u0026 Cohen", "value": 4}, {"color": "Green", "id": "the White House Counsel\u0027s Office", "label": "the White House Counsel\u0027s Office", "shape": "dot", "title": "the White House Counsel\u0027s Office", "value": 17}, {"color": "Green", "id": "the Senate Judiciary Committee", "label": "the Senate Judiciary Committee", "shape": "dot", "title": "the Senate Judiciary Committee", "value": 10}, {"color": "Green", "id": "the Trump Campaign", "label": "the Trump Campaign", "shape": "dot", "title": "the Trump Campaign", "value": 20}, {"color": "Blue", "id": "Russia", "label": "Russia", "shape": "dot", "title": "Russia", "value": 280}, {"color": "Red", "id": "Atterney Werk", "label": "Atterney Werk", "shape": "dot", "title": "Atterney Werk", "value": 6}, {"color": "grey", "id": "par_629", "label": "par_629", "shape": "dot", "title": "par_629", "value": 18}, {"color": "Green", "id": "Office", "label": "Office", "shape": "dot", "title": "Office", "value": 158}, {"color": "Red", "id": "Goldstone", "label": "Goldstone", "shape": "dot", "title": "Goldstone", "value": 21}, {"color": "Green", "id": "6/8/16 Email", "label": "6/8/16 Email", "shape": "dot", "title": "6/8/16 Email", "value": 2}, {"color": "Green", "id": "Priebus", "label": "Priebus", "shape": "dot", "title": "Priebus", "value": 60}, {"color": "Red", "id": "Hicks 3/13/ l", "label": "Hicks 3/13/ l", "shape": "dot", "title": "Hicks 3/13/ l", "value": 3}, {"color": "Red", "id": "Cetttaitt", "label": "Cetttaitt", "shape": "dot", "title": "Cetttaitt", "value": 9}, {"color": "Red", "id": "Klokov", "label": "Klokov", "shape": "dot", "title": "Klokov", "value": 4}, {"color": "Red", "id": "Vladimir Putin", "label": "Vladimir Putin", "shape": "dot", "title": "Vladimir Putin", "value": 16}, {"color": "Green", "id": "Trump Moscow", "label": "Trump Moscow", "shape": "dot", "title": "Trump Moscow", "value": 23}, {"color": "Green", "id": "Trump", "label": "Trump", "shape": "dot", "title": "Trump", "value": 251}, {"color": "Red", "id": "Putin", "label": "Putin", "shape": "dot", "title": "Putin", "value": 56}, {"color": "Red", "id": "Dmitry Klokov", "label": "Dmitry Klokov", "shape": "dot", "title": "Dmitry Klokov", "value": 3}, {"color": "Green", "id": "Erchova", "label": "Erchova", "shape": "dot", "title": "Erchova", "value": 2}, {"color": "Green", "id": "Special Counsel\u0027s Office", "label": "Special Counsel\u0027s Office", "shape": "dot", "title": "Special Counsel\u0027s Office", "value": 8}, {"color": "Red", "id": "Sater", "label": "Sater", "shape": "dot", "title": "Sater", "value": 20}, {"color": "Blue", "id": "New York", "label": "New York", "shape": "dot", "title": "New York", "value": 35}, {"color": "Red", "id": "Lewandowski", "label": "Lewandowski", "shape": "dot", "title": "Lewandowski", "value": 25}, {"color": "Green", "id": "the Republican National Convention", "label": "the Republican National Convention", "shape": "dot", "title": "the Republican National Convention", "value": 9}, {"color": "Red", "id": "Sergei Prikhodko", "label": "Sergei Prikhodko", "shape": "dot", "title": "Sergei Prikhodko", "value": 2}, {"color": "Red", "id": "Rhona Graff", "label": "Rhona Graff", "shape": "dot", "title": "Rhona Graff", "value": 4}, {"color": "Red", "id": "Duma", "label": "Duma", "shape": "dot", "title": "Duma", "value": 3}, {"color": "Green", "id": "Text Messages", "label": "Text Messages", "shape": "dot", "title": "Text Messages", "value": 6}, {"color": "Red", "id": "Cohen 9/12/18", "label": "Cohen 9/12/18", "shape": "dot", "title": "Cohen 9/12/18", "value": 22}, {"color": "Green", "id": "Cohen \u0026 Sater", "label": "Cohen \u0026 Sater", "shape": "dot", "title": "Cohen \u0026 Sater", "value": 3}, {"color": "Red", "id": "Ma", "label": "Ma", "shape": "dot", "title": "Ma", "value": 20}, {"color": "Red", "id": "Werle", "label": "Werle", "shape": "dot", "title": "Werle", "value": 10}, {"color": "Green", "id": "Gates", "label": "Gates", "shape": "dot", "title": "Gates", "value": 25}, {"color": "Red", "id": "Giorgi Rtskhiladze", "label": "Giorgi Rtskhiladze", "shape": "dot", "title": "Giorgi Rtskhiladze", "value": 4}, {"color": "Green", "id": "Trump Tower", "label": "Trump Tower", "shape": "dot", "title": "Trump Tower", "value": 16}, {"color": "Red", "id": "Felix Sater", "label": "Felix Sater", "shape": "dot", "title": "Felix Sater", "value": 8}, {"color": "Red", "id": "Michael Cohen", "label": "Michael Cohen", "shape": "dot", "title": "Michael Cohen", "value": 48}, {"color": "Green", "id": "LC", "label": "LC", "shape": "dot", "title": "LC", "value": 5}, {"color": "Red", "id": "Rozov", "label": "Rozov", "shape": "dot", "title": "Rozov", "value": 4}, {"color": "Green", "id": "White House", "label": "White House", "shape": "dot", "title": "White House", "value": 52}, {"color": "Blue", "id": "Azerbaijan", "label": "Azerbaijan", "shape": "dot", "title": "Azerbaijan", "value": 2}, {"color": "Red", "id": "Hope Hicks", "label": "Hope Hicks", "shape": "dot", "title": "Hope Hicks", "value": 6}, {"color": "Red", "id": "Manafort", "label": "Manafort", "shape": "dot", "title": "Manafort", "value": 71}, {"color": "Red", "id": "Rick Gates", "label": "Rick Gates", "shape": "dot", "title": "Rick Gates", "value": 9}, {"color": "Red", "id": "Eric Trump", "label": "Eric Trump", "shape": "dot", "title": "Eric Trump", "value": 3}, {"color": "Red", "id": "Paul Manafort", "label": "Paul Manafort", "shape": "dot", "title": "Paul Manafort", "value": 52}, {"color": "Red", "id": "Jared Kushner", "label": "Jared Kushner", "shape": "dot", "title": "Jared Kushner", "value": 30}, {"color": "Red", "id": "Clinton", "label": "Clinton", "shape": "dot", "title": "Clinton", "value": 98}, {"color": "Red", "id": "Vargas", "label": "Vargas", "shape": "dot", "title": "Vargas", "value": 6}, {"color": "Red", "id": "Manafo1", "label": "Manafo1", "shape": "dot", "title": "Manafo1", "value": 3}, {"color": "Green", "id": "6/6/16 Email", "label": "6/6/16 Email", "shape": "dot", "title": "6/6/16 Email", "value": 2}, {"color": "Red", "id": "Aras Agalarov", "label": "Aras Agalarov", "shape": "dot", "title": "Aras Agalarov", "value": 12}, {"color": "Red", "id": "Neil MacFarquhar", "label": "Neil MacFarquhar", "shape": "dot", "title": "Neil MacFarquhar", "value": 2}, {"color": "Green", "id": "New York Times", "label": "New York Times", "shape": "dot", "title": "New York Times", "value": 40}, {"color": "Red", "id": "Corallo", "label": "Corallo", "shape": "dot", "title": "Corallo", "value": 5}, {"color": "Red", "id": "Erik Prince", "label": "Erik Prince", "shape": "dot", "title": "Erik Prince", "value": 11}, {"color": "Blue", "id": "Seychelles", "label": "Seychelles", "shape": "dot", "title": "Seychelles", "value": 11}, {"color": "Red", "id": "Rick Gerson", "label": "Rick Gerson", "shape": "dot", "title": "Rick Gerson", "value": 4}, {"color": "Red", "id": "Donald McGahn", "label": "Donald McGahn", "shape": "dot", "title": "Donald McGahn", "value": 4}, {"color": "Green", "id": "the New Economic School", "label": "the New Economic School", "shape": "dot", "title": "the New Economic School", "value": 4}, {"color": "Red", "id": "Carter Page", "label": "Carter Page", "shape": "dot", "title": "Carter Page", "value": 21}, {"color": "Green", "id": "the National Security Council", "label": "the National Security Council", "shape": "dot", "title": "the National Security Council", "value": 2}, {"color": "Green", "id": "the Presidential Administration", "label": "the Presidential Administration", "shape": "dot", "title": "the Presidential Administration", "value": 2}, {"color": "Green", "id": "LOI", "label": "LOI", "shape": "dot", "title": "LOI", "value": 6}, {"color": "grey", "id": "par_186", "label": "par_186", "shape": "dot", "title": "par_186", "value": 5}, {"color": "Green", "id": "Unified Energy System", "label": "Unified Energy System", "shape": "dot", "title": "Unified Energy System", "value": 2}, {"color": "Blue", "id": "USA", "label": "USA", "shape": "dot", "title": "USA", "value": 2}, {"color": "Green", "id": "Post-LOI Contacts", "label": "Post-LOI Contacts", "shape": "dot", "title": "Post-LOI Contacts", "value": 2}, {"color": "Green", "id": "PJSC Federal Grid Company", "label": "PJSC Federal Grid Company", "shape": "dot", "title": "PJSC Federal Grid Company", "value": 2}, {"color": "Green", "id": "Sater 12/15/17", "label": "Sater 12/15/17", "shape": "dot", "title": "Sater 12/15/17", "value": 2}]);
+        edges = new vis.DataSet([{"from": "Germany", "to": "par_630", "value": 1}, {"from": "Michael", "to": "par_174", "value": 1}, {"from": "par_630", "to": "Werk Predttet", "value": 1}, {"from": "par_630", "to": "Fed", "value": 1}, {"from": "par_630", "to": "Hicks", "value": 18}, {"from": "par_630", "to": "Kushner", "value": 5}, {"from": "par_630", "to": "Ivanka Trump", "value": 1}, {"from": "par_630", "to": "\u00b0 Kushner", "value": 1}, {"from": "par_630", "to": "Raffel", "value": 2}, {"from": "par_630", "to": "the New York Times", "value": 1}, {"from": "par_630", "to": "Raffel 2/8/18 302", "value": 1}, {"from": "par_630", "to": "Raffel 2/8/18", "value": 1}, {"from": "par_630", "to": "Hicks 3/", "value": 1}, {"from": "Cohen", "to": "par_161", "value": 4}, {"from": "Cohen", "to": "par_174", "value": 8}, {"from": "Cohen", "to": "par_177", "value": 15}, {"from": "Cohen", "to": "par_185", "value": 11}, {"from": "Cohen", "to": "par_251", "value": 3}, {"from": "the Russian Federation", "to": "par_828", "value": 1}, {"from": "the Crocus Group", "to": "par_160", "value": 1}, {"from": "the Crocus Group", "to": "par_251", "value": 1}, {"from": "par_160", "to": "Trump Tower Moscow", "value": 1}, {"from": "par_160", "to": "Trump Organization", "value": 1}, {"from": "par_160", "to": "Moscow", "value": 2}, {"from": "par_160", "to": "the Trump Organization", "value": 4}, {"from": "par_160", "to": "Agalarov", "value": 1}, {"from": "par_160", "to": "Ivanka Trump", "value": 1}, {"from": "par_160", "to": "Emin Agalarov", "value": 1}, {"from": "par_160", "to": "Crocus Group", "value": 3}, {"from": "par_160", "to": "OSC", "value": 3}, {"from": "par_160", "to": "Kaveladze", "value": 3}, {"from": "par_160", "to": "OSC-KA", "value": 7}, {"from": "Crimea", "to": "par_177", "value": 1}, {"from": "Crimea", "to": "par_828", "value": 1}, {"from": "the Russian Direct Investment Fund", "to": "par_828", "value": 1}, {"from": "Corey Lewandowski", "to": "par_185", "value": 1}, {"from": "Sater \u0026 Cohen", "to": "par_185", "value": 1}, {"from": "the White House Counsel\u0027s Office", "to": "par_828", "value": 2}, {"from": "the Senate Judiciary Committee", "to": "par_251", "value": 1}, {"from": "the Trump Campaign", "to": "par_174", "value": 1}, {"from": "the Trump Campaign", "to": "par_828", "value": 1}, {"from": "Russia", "to": "par_174", "value": 2}, {"from": "Russia", "to": "par_177", "value": 6}, {"from": "Russia", "to": "par_185", "value": 3}, {"from": "Russia", "to": "par_251", "value": 1}, {"from": "Russia", "to": "par_828", "value": 1}, {"from": "Atterney Werk", "to": "par_161", "value": 1}, {"from": "\u00b0 Kushner", "to": "par_251", "value": 1}, {"from": "Kushner", "to": "par_251", "value": 4}, {"from": "Kushner", "to": "par_629", "value": 7}, {"from": "Office", "to": "par_161", "value": 1}, {"from": "Office", "to": "par_177", "value": 5}, {"from": "Office", "to": "par_185", "value": 1}, {"from": "Office", "to": "par_251", "value": 1}, {"from": "Goldstone", "to": "par_251", "value": 1}, {"from": "6/8/16 Email", "to": "par_251", "value": 3}, {"from": "Priebus", "to": "par_629", "value": 1}, {"from": "Hicks 3/13/ l", "to": "par_629", "value": 1}, {"from": "par_177", "to": "Cetttaitt", "value": 1}, {"from": "par_177", "to": "Ivanka Trump", "value": 1}, {"from": "par_177", "to": "Klokov", "value": 16}, {"from": "par_177", "to": "Vladimir Putin", "value": 1}, {"from": "par_177", "to": "Trump Moscow", "value": 1}, {"from": "par_177", "to": "Trump", "value": 4}, {"from": "par_177", "to": "Putin", "value": 2}, {"from": "par_177", "to": "the Trump Organization", "value": 1}, {"from": "par_177", "to": "Dmitry Klokov", "value": 1}, {"from": "par_177", "to": "Erchova", "value": 1}, {"from": "par_177", "to": "Special Counsel\u0027s Office", "value": 1}, {"from": "par_185", "to": "Sater", "value": 4}, {"from": "par_185", "to": "New York", "value": 1}, {"from": "par_185", "to": "Trump", "value": 1}, {"from": "par_185", "to": "Trump Moscow", "value": 1}, {"from": "par_185", "to": "Lewandowski", "value": 1}, {"from": "par_185", "to": "the Republican National Convention", "value": 1}, {"from": "par_185", "to": "Ivanka Trump", "value": 1}, {"from": "par_185", "to": "Sergei Prikhodko", "value": 1}, {"from": "par_185", "to": "Rhona Graff", "value": 1}, {"from": "par_185", "to": "Duma", "value": 1}, {"from": "par_185", "to": "Text Messages", "value": 1}, {"from": "par_185", "to": "Cohen 9/12/18", "value": 1}, {"from": "par_185", "to": "Cohen \u0026 Sater", "value": 1}, {"from": "Putin", "to": "par_174", "value": 2}, {"from": "Ma", "to": "par_251", "value": 1}, {"from": "Werle", "to": "par_629", "value": 1}, {"from": "Trump Tower Moscow", "to": "par_161", "value": 1}, {"from": "Gates", "to": "par_251", "value": 1}, {"from": "par_161", "to": "Giorgi Rtskhiladze", "value": 1}, {"from": "par_161", "to": "the Trump Organization", "value": 7}, {"from": "par_161", "to": "Trump Tower", "value": 2}, {"from": "par_161", "to": "Moscow", "value": 5}, {"from": "par_161", "to": "Felix Sater", "value": 1}, {"from": "par_161", "to": "Michael Cohen", "value": 1}, {"from": "par_161", "to": "Sater", "value": 1}, {"from": "par_161", "to": "Trump", "value": 1}, {"from": "par_161", "to": "LC", "value": 1}, {"from": "par_161", "to": "Rozov", "value": 5}, {"from": "par_161", "to": "New York", "value": 1}, {"from": "par_161", "to": "Trump Organization", "value": 1}, {"from": "par_161", "to": "Trump Moscow", "value": 1}, {"from": "par_161", "to": "Ivanka Trump", "value": 1}, {"from": "White House", "to": "par_629", "value": 1}, {"from": "White House", "to": "par_828", "value": 1}, {"from": "Trump Moscow", "to": "par_174", "value": 3}, {"from": "Azerbaijan", "to": "par_251", "value": 1}, {"from": "Hope Hicks", "to": "par_251", "value": 1}, {"from": "Hope Hicks", "to": "par_629", "value": 1}, {"from": "Sater", "to": "par_174", "value": 3}, {"from": "Erchova", "to": "par_174", "value": 1}, {"from": "Vladimir Putin", "to": "par_828", "value": 1}, {"from": "Hicks", "to": "par_251", "value": 1}, {"from": "Hicks", "to": "par_629", "value": 18}, {"from": "par_251", "to": "Manafort", "value": 1}, {"from": "par_251", "to": "Rick Gates", "value": 1}, {"from": "par_251", "to": "Trump", "value": 4}, {"from": "par_251", "to": "Eric Trump", "value": 1}, {"from": "par_251", "to": "Paul Manafort", "value": 1}, {"from": "par_251", "to": "Ivanka Trump", "value": 1}, {"from": "par_251", "to": "Jared Kushner", "value": 1}, {"from": "par_251", "to": "Michael Cohen", "value": 1}, {"from": "par_251", "to": "Clinton", "value": 1}, {"from": "par_251", "to": "Vargas", "value": 2}, {"from": "par_251", "to": "Manafo1", "value": 1}, {"from": "par_251", "to": "6/6/16 Email", "value": 1}, {"from": "par_251", "to": "Aras Agalarov", "value": 1}, {"from": "par_251", "to": "Neil MacFarquhar", "value": 1}, {"from": "par_251", "to": "New York Times", "value": 1}, {"from": "Dmitry Klokov", "to": "par_174", "value": 2}, {"from": "Dmitry Klokov", "to": "par_828", "value": 1}, {"from": "Klokov", "to": "par_174", "value": 2}, {"from": "Klokov", "to": "par_828", "value": 1}, {"from": "Jared Kushner", "to": "par_629", "value": 1}, {"from": "par_629", "to": "Ivanka Trump", "value": 1}, {"from": "par_629", "to": "Manafort", "value": 1}, {"from": "par_629", "to": "Corallo", "value": 1}, {"from": "par_629", "to": "Raffel", "value": 1}, {"from": "par_629", "to": "Raffel 2/8/18 302", "value": 2}, {"from": "par_629", "to": "Trump", "value": 1}, {"from": "par_828", "to": "Paul Manafort", "value": 1}, {"from": "par_828", "to": "Erik Prince", "value": 1}, {"from": "par_828", "to": "Seychelles", "value": 1}, {"from": "par_828", "to": "Rick Gerson", "value": 1}, {"from": "par_828", "to": "Donald McGahn", "value": 1}, {"from": "par_828", "to": "the New Economic School", "value": 1}, {"from": "par_828", "to": "Moscow", "value": 1}, {"from": "par_828", "to": "Carter Page", "value": 1}, {"from": "par_828", "to": "Felix Sater", "value": 1}, {"from": "par_828", "to": "the National Security Council", "value": 1}, {"from": "par_828", "to": "Ivanka Trump", "value": 1}, {"from": "the Presidential Administration", "to": "par_174", "value": 1}, {"from": "LOI", "to": "par_174", "value": 1}, {"from": "Cohen 9/12/18", "to": "par_174", "value": 1}, {"from": "Cohen 9/12/18", "to": "par_186", "value": 2}, {"from": "Unified Energy System", "to": "par_174", "value": 1}, {"from": "Ivanka Trump", "to": "par_174", "value": 1}, {"from": "Ivanka Trump", "to": "par_186", "value": 1}, {"from": "USA", "to": "par_174", "value": 1}, {"from": "par_174", "to": "Trump", "value": 3}, {"from": "par_174", "to": "Post-LOI Contacts", "value": 1}, {"from": "par_174", "to": "the Trump Organization", "value": 1}, {"from": "par_174", "to": "PJSC Federal Grid Company", "value": 1}, {"from": "par_174", "to": "Sater 12/15/17", "value": 2}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        // default to using dot shape for nodes
+        options.nodes = {
+            shape: "dot"
+        }
+        
+
+        network = new vis.Network(container, data, options);
+
+        
+
+
+        
+        network.on("stabilizationProgress", function(params) {
+      		document.getElementById('loadingBar').removeAttribute("style");
+	        var maxWidth = 496;
+	        var minWidth = 20;
+	        var widthFactor = params.iterations/params.total;
+	        var width = Math.max(minWidth,maxWidth * widthFactor);
+
+	        document.getElementById('bar').style.width = width + 'px';
+	        document.getElementById('text').innerHTML = Math.round(widthFactor*100) + '%';
+	    });
+	    network.once("stabilizationIterationsDone", function() {
+	        document.getElementById('text').innerHTML = '100%';
+	        document.getElementById('bar').style.width = '496px';
+	        document.getElementById('loadingBar').style.opacity = 0;
+	        // really clean the dom element
+	        setTimeout(function () {document.getElementById('loadingBar').style.display = 'none';}, 500);
+	    });
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
