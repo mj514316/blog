@@ -22,9 +22,11 @@ image: ''
 
 One thing that would be useful when navigating a document (or set of documents) like this is the ability to find things that are 'like' other things. For example, if you are trying to follow the thread of a story through the document, you might want to find all the paragraphs that are about similar things to the paragraph you are interested. 
 
+![Similar Things](https://media.giphy.com/media/l36kU80xPf0ojG0Erg/giphy.gif)
+
 Additionally, you might want to understand relationships and similarities between the people, places, and organizations that are mentioned in the graph. You could ask the question, which locations is this individual most associated with?
 
-One way to accomplish that would be to build a vector representation of the items in the graph. Vectors are convienient because we have nice ways of measuring similarity and dissimilarity, and so we need a way to generate vectors from the nodes in a graph that will caputure some measure of the similarities and differences between the entities.
+One way to accomplish that would be to build a vector (aka 'distributed') representation of the items in the graph. Vectors are convienient because we have nice ways of measuring similarity and dissimilarity, and so we need a way to generate vectors from the nodes in a graph that will caputure some measure of the similarities and differences between the entities.
 
 The [Word2Vec](https://arxiv.org/abs/1301.3781) fits the bill perfectly. Origonally designed for building vector representations of words, the algorithm operates under the principal that a word should be defined by it's context. It accomplishes this by scanning over a span of words and building a model that predicts a given words from the words that surround it.
 
