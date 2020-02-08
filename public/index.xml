@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>mj514316@domain.com (Michael C Johnson)</managingEditor>
     <webMaster>mj514316@domain.com (Michael C Johnson)</webMaster>
-    <lastBuildDate>Wed, 19 Jun 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 25 Jan 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Distributed Graph Representations Using the Mueller Report</title>
+      <link>/post/distributed-graph-representations-using-the-mueller-report/</link>
+      <pubDate>Sat, 25 Jan 2020 00:00:00 +0000</pubDate>
+      <author>mj514316@domain.com (Michael C Johnson)</author>
+      <guid>/post/distributed-graph-representations-using-the-mueller-report/</guid>
+      <description>Note: This is part 2 of my series on the Mueller Report. Please take a look at Part 1 if you are interested in how I built the graph.
+One thing that would be useful when navigating a document (or set of documents) like the Mueller Report is the ability to find things that are &amp;lsquo;like&amp;rsquo; other things. For example, if you are trying to follow the thread of a story through the document, you might want to find all the paragraphs that are about similar things to the paragraph you are interested in.</description>
+    </item>
     
     <item>
       <title>Graph Visualization of The Mueller Report With SpaCy and PyVis</title>

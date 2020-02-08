@@ -47,7 +47,7 @@
         
 
         // parsing and collecting nodes and edges from the python
-        nodes = new vis.DataSet([{"color": "Grey", "id": "Paragraph", "label": "Paragraph", "shape": "dot"}, {"color": "Blue", "id": "Location", "label": "Location", "shape": "dot"}, {"color": "Red", "id": "Person", "label": "Person", "shape": "dot"}, {"color": "Black", "id": "Concept/Theme", "label": "Concept/Theme", "shape": "dot"}]);
+        nodes = new vis.DataSet([{"color": "Grey", "id": "Paragraph", "label": "Paragraph", "shape": "dot", "title": "\u003ca  title=\"Line 1\u0026#5;Line 2\u0026#5;Line 3\"\u003e a pretty really really really really Long String\u003c/a\u003e"}, {"color": "Blue", "id": "Location", "label": "Location", "shape": "dot"}, {"color": "Red", "id": "Person", "label": "Person", "shape": "dot"}, {"color": "Black", "id": "Concept/Theme", "label": "Concept/Theme", "shape": "dot"}]);
         edges = new vis.DataSet([{"from": "Paragraph", "to": "Location"}, {"from": "Paragraph", "to": "Person"}, {"from": "Paragraph", "to": "Concept/Theme"}]);
 
         // adding nodes and edges to the graph
