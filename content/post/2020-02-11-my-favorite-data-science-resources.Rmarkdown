@@ -1,12 +1,13 @@
 ---
 title: My Favorite Data Science/Machine Learning/Statistics Resources
 author: Michael Johnson
-date: '2020-02-11'
+date: '2020-03-09'
 slug: my-favorite-data-science-resources
 tags:
   - forecasting
   - Deep Learning
   - machine learning
+  - Artificial Intelligence
 type: ''
 subtitle: 'The Good, The Bad, The Ugly'
 image: ''
